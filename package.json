@@ -5,6 +5,7 @@
   "main": "index.js",
   "bin": {},
   "scripts": {
+    "syncdb": "node server/script/syncDatabase",
     "lint": "eslint .",
     "precommit": "npm run lint",
     "prepush": "npm run lint"
