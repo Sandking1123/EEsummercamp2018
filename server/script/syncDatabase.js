@@ -10,5 +10,4 @@ Quiz.belongsTo(User, {foreignKey: 'userId'});
 
 // sync database
 database.sync({force: true})
-  .then(() => process.exit(0))
-  .catch(() => process.exit(1));
+  .then(() => database.close());
