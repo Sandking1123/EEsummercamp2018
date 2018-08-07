@@ -7,7 +7,7 @@ const Question = database.define('question', {
   lesson: Sequelize.STRING,
   author: Sequelize.STRING,
   category: Sequelize.STRING,
-  question: Sequelize.STRING,
+  question: Sequelize.TEXT,
   answers: Sequelize.ARRAY(Sequelize.JSONB)
 });
 
