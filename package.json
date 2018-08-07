@@ -5,6 +5,7 @@
   "main": "index.js",
   "bin": {},
   "scripts": {
+    "dev:server": "nodemon --ignore client/ --exec \"node -r ./server/script/preflight server/\"",
     "syncdb": "node -r ./server/script/preflight server/script/syncDatabase",
     "lint": "eslint .",
     "precommit": "npm run lint",
@@ -39,6 +40,7 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "husky": "^0.14.3"
+    "husky": "^0.14.3",
+    "nodemon": "^1.18.3"
   }
 }
