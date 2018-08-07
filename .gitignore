@@ -13,3 +13,7 @@ npm-debug.log*
 
 # general
 .DS_Store
+
+
+# config file
+.env

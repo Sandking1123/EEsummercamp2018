@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": {},
   "scripts": {
-    "syncdb": "node server/script/syncDatabase",
+    "syncdb": "node -r ./server/script/preflight server/script/syncDatabase",
     "lint": "eslint .",
     "precommit": "npm run lint",
     "prepush": "npm run lint"
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/ExtensionEngine/project-nikolovska",
   "dependencies": {
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "pg": "^7.4.3",
     "sequelize": "^4.38.0"
