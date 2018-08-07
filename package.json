@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/ExtensionEngine/project-nikolovska",
   "dependencies": {
+    "express": "^4.16.3",
     "pg": "^7.4.3",
     "sequelize": "^4.38.0"
   },
