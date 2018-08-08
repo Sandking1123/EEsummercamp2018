@@ -5,6 +5,9 @@
   "main": "index.js",
   "bin": {},
   "scripts": {
+    "client:serve": "vue-cli-service serve",
+    "client:build": "vue-cli-service build",
+    "client:lint": "vue-cli-service lint",
     "dev:server": "nodemon --ignore client/ --exec \"node -r dotenv/config server/\"",
     "syncdb": "node -r dotenv/config server/script/syncDatabase",
     "populatedb": "node -r dotenv/config server/script/populateDatabase.js",
@@ -29,6 +32,7 @@
   },
   "homepage": "https://github.com/ExtensionEngine/project-nikolovska",
   "dependencies": {
+    "vue": "^2.5.17",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "pg": "^7.4.3",
@@ -36,6 +40,10 @@
     "sequelize": "^4.38.0"
   },
   "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0-rc.11",
+    "@vue/cli-plugin-eslint": "^3.0.0-rc.11",
+    "@vue/cli-service": "^3.0.0-rc.11",
+    "vue-template-compiler": "^2.5.17",
     "lint": "^1.1.2",
     "eslint": "^5.2.0",
     "eslint-config-semistandard": "^12.0.1",
