@@ -14,14 +14,5 @@ npm-debug.log*
 # general
 .DS_Store
 
-<<<<<<< HEAD
-server/script/syncDatabase.js
-
-server/script/get10Questions.js
-
-questions.json
-=======
-
 # config file
 .env
->>>>>>> master
