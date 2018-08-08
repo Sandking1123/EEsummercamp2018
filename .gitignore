@@ -16,3 +16,6 @@ npm-debug.log*
 
 # config file
 .env
+
+# seed data
+questions.json
