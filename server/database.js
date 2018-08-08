@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 
-// TODO: separate this in .env file
-const database = new Sequelize('postgres://postgres:admin@localhost:5432/nikolovska');
+const database = new Sequelize(process.env.POSTGRES_URI);
 
 module.exports = database;
