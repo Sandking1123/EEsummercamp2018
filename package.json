@@ -5,7 +5,8 @@
   "main": "index.js",
   "bin": {},
   "scripts": {
-    "syncdb": "node server/script/syncDatabase",
+    "dev:server": "nodemon --ignore client/ --exec \"node -r dotenv/config server/\"",
+    "syncdb": "node -r dotenv/config server/script/syncDatabase",
     "lint": "eslint .",
     "precommit": "npm run lint",
     "prepush": "npm run lint"
@@ -26,6 +27,8 @@
   },
   "homepage": "https://github.com/ExtensionEngine/project-nikolovska",
   "dependencies": {
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
     "pg": "^7.4.3",
     "sequelize": "^4.38.0"
   },
@@ -37,6 +40,7 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "husky": "^0.14.3"
+    "husky": "^0.14.3",
+    "nodemon": "^1.18.3"
   }
 }
