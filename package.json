@@ -5,11 +5,15 @@
   "main": "index.js",
   "bin": {},
   "scripts": {
+    "build:client": "vue-cli-service build",
+    "dev:client": "vue-cli-service serve",
     "dev:server": "nodemon --ignore client/ --exec \"node -r dotenv/config server/\"",
     "syncdb": "node -r dotenv/config server/script/syncDatabase",
     "populatedb": "node -r dotenv/config server/script/populateDatabase.js",
     "create_populate": "npm run syncdb && npm run populatedb",
-    "lint": "eslint .",
+    "lint:client": "eslint --ext .js,.vue client",
+    "lint:server": "eslint server",
+    "lint": "npm run lint:server && npm run lint:client",
     "precommit": "npm run lint",
     "prepush": "npm run lint"
   },
@@ -29,6 +33,7 @@
   },
   "homepage": "https://github.com/ExtensionEngine/project-nikolovska",
   "dependencies": {
+    "vue": "^2.5.17",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "pg": "^7.4.3",
@@ -36,7 +41,9 @@
     "sequelize": "^4.38.0"
   },
   "devDependencies": {
-    "lint": "^1.1.2",
+    "@vue/cli-plugin-babel": "^3.0.0-rc.11",
+    "@vue/cli-plugin-eslint": "^3.0.0-rc.11",
+    "@vue/cli-service": "^3.0.0-rc.11",
     "eslint": "^5.2.0",
     "eslint-config-semistandard": "^12.0.1",
     "eslint-config-standard": "^11.0.0",
@@ -44,7 +51,10 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
+    "eslint-plugin-vue": "^5.0.0-beta.2",
     "husky": "^0.14.3",
-    "nodemon": "^1.18.3"
+    "lint": "^1.1.2",
+    "nodemon": "^1.18.3",
+    "vue-template-compiler": "^2.5.17"
   }
 }
