@@ -1,10 +1,7 @@
 const express = require('express');
+const questionRouter = require('./question');
 
 const router = express.Router();
-
-// TODO setup real endpoints and controllers
-router.use('/', (req, res, next) => {
-  res.send('Hello!');
-});
+router.use('/', questionRouter);
 
 module.exports = router;
