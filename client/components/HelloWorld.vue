@@ -32,11 +32,14 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'hello-world',
   props: {
-    msg: String
+    msg: {
+      type: String,
+      default: 'Hello Vue!'
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
