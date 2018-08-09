@@ -8,4 +8,8 @@ const Quiz = database.define('quiz', {
   elapsedTime: Sequelize.INTEGER
 });
 
+// set relations
+const User = require('../user/user.model');
+Quiz.belongsTo(User, {foreignKey: 'userId'});
+
 module.exports = Quiz;
