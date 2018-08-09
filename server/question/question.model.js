@@ -22,7 +22,7 @@ Question.prototype.filter = function filterQuestion() {
     };
   });
 
-  return Promise.resolve(question);
+  return question;
 };
 
 module.exports = Question;
