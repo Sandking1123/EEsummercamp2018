@@ -5,14 +5,14 @@
   "main": "index.js",
   "bin": {},
   "scripts": {
-    "client:serve": "vue-cli-service serve",
-    "client:build": "vue-cli-service build",
-    "lint:client": "eslint --ext .js,.vue client/",
+    "build:client": "vue-cli-service build",
+    "dev:client": "vue-cli-service serve",
     "dev:server": "nodemon --ignore client/ --exec \"node -r dotenv/config server/\"",
     "syncdb": "node -r dotenv/config server/script/syncDatabase",
     "populatedb": "node -r dotenv/config server/script/populateDatabase.js",
     "create_populate": "npm run syncdb && npm run populatedb",
-    "lint:server": "eslint .",
+    "lint:client": "eslint --ext .js,.vue client",
+    "lint:server": "eslint server",
     "lint": "npm run lint:server && npm run lint:client",
     "precommit": "npm run lint",
     "prepush": "npm run lint"
