@@ -13,9 +13,13 @@
     "create_populate": "npm run syncdb && npm run populatedb",
     "lint:client": "eslint --ext .js,.vue client",
     "lint:server": "eslint server",
-    "lint": "npm run lint:server && npm run lint:client",
-    "precommit": "npm run lint",
-    "prepush": "npm run lint"
+    "lint": "npm run lint:server && npm run lint:client"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run lint"
+    }
   },
   "keywords": [],
   "repository": {
@@ -52,7 +56,7 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "eslint-plugin-vue": "^5.0.0-beta.2",
-    "husky": "^0.14.3",
+    "husky": "^1.0.0-rc.13",
     "lint": "^1.1.2",
     "nodemon": "^1.18.3",
     "vue-template-compiler": "^2.5.17"
