@@ -2,11 +2,8 @@ const database = require('../database');
 
 // create models
 require('../question/question.model');
-const User = require('../user/user.model');
-const Quiz = require('../quiz/quiz.model');
-
-// set relations
-Quiz.belongsTo(User, {foreignKey: 'userId'});
+require('../user/user.model');
+require('../quiz/quiz.model');
 
 // sync database
 database.sync({force: true})
