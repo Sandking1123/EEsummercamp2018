@@ -8,6 +8,8 @@ router.use('/quizzes', (req, res, next) => {
   next();
 });
 
+// start/resume quiz
+router.get('/quizzes/instance', controller.retrieveQuizInstance);
 // review
 router.get('/quizzes/:id', controller.getQuizDetails);
 // history
