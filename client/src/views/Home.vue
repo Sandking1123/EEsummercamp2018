@@ -6,6 +6,7 @@
     <h2 class="continue">To continue using this app please log in</h2>
     <br> <br>
     <div class="button-container">
+      <router-link to= "/auth"></router-link>
       <button>Login<img width="50" height="50" src="./assets/google_plus.png" align="right"> </button>
 
     </div>
@@ -14,7 +15,7 @@
 
 <script>
 export default {
-  name: 'app',
+  name: 'home',
   data() {
     return {
       msg: 'Test Your Knowledge'
