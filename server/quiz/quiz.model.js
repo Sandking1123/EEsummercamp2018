@@ -23,5 +23,8 @@ Quiz.Questions = database.define('quizQuestions', {
 });
 Question.belongsToMany(Quiz, {through: Quiz.Questions});
 Quiz.belongsToMany(Question, {through: Quiz.Questions});
+// so we can join (include) quiz and quizQuestions tables
+Quiz.hasMany(Quiz.Questions);
+Quiz.Questions.belongsTo(Quiz);
 
 module.exports = Quiz;
