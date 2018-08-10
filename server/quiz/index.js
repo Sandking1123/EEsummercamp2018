@@ -10,6 +10,7 @@ router.use('/quizzes', (req, res, next) => {
 
 // start/resume quiz
 router.get('/quizzes/instance', controller.retrieveQuizInstance);
+router.post('/quizzes/instance', controller.startQuizInstance);
 // review
 router.get('/quizzes/:id', controller.getQuizDetails);
 // history

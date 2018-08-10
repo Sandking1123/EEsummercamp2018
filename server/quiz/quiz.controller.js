@@ -1,4 +1,5 @@
 const Quiz = require('./quiz.model');
+const Question = require('../question/question.model');
 
 function getQuizzes(req, res) {
   const userId = req.userId;
@@ -22,10 +23,24 @@ function retrieveQuizInstance(req, res) {
     .catch(() => res.status(404).json({}));
 }
 
+function startQuizInstance(req, res) {
+  const userId = req.userId;
+  findQuizInstance(userId)
+    // found instance, let the user decide what to do
+    .then(quizInstance => res.status(302).json(quizInstance))
+    // create new instance
+    .catch(() => {
+      createQuizInstance(userId)
+        .then(createdQuizInstance => res.status(201).json(createdQuizInstance))
+        .catch((err) => res.status(401).json(err));
+    });
+}
+
 module.exports = {
   getQuizzes,
   getQuizDetails,
-  retrieveQuizInstance
+  retrieveQuizInstance,
+  startQuizInstance
 };
 
 async function findQuizDetails(quizId, userId) {
@@ -60,4 +75,22 @@ async function findQuizInstance(userId) {
   } else {
     return Promise.resolve(quizInstance);
   }
+}
+
+async function createQuizInstance(userId) {
+  const randomInt = require('random-int');
+  const count = await Question.count();
+  const questions = [];
+  while (questions.length < 10) {
+    let id;
+    while (questions.includes(id = randomInt(1, count))) {}
+    questions.push(id);
+  }
+
+  return Quiz.create({
+    userId,
+    quizQuestions: questions.map(questionId => ({questionId}))
+  }, {
+    include: [Quiz.Questions]
+  });
 }
