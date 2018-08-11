@@ -37,12 +37,13 @@
   },
   "homepage": "https://github.com/ExtensionEngine/project-nikolovska",
   "dependencies": {
-    "vue": "^2.5.17",
+    "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "pg": "^7.4.3",
     "random-int": "^1.0.0",
-    "sequelize": "^4.38.0"
+    "sequelize": "^4.38.0",
+    "vue": "^2.5.17"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.11",
