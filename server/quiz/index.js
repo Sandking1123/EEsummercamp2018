@@ -8,6 +8,8 @@ router.use('/quizzes', (req, res, next) => {
   next();
 });
 
+// answer question / finish quiz
+router.put('/quizzes/instance/question/:id', controller.answerQuestion);
 // start/resume quiz
 router.get('/quizzes/instance', controller.retrieveQuizInstance);
 router.post('/quizzes/instance', controller.startQuizInstance);

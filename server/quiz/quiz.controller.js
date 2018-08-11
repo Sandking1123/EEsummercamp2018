@@ -36,11 +36,63 @@ function startQuizInstance(req, res) {
     });
 }
 
+function answerQuestion(req, res) {
+  const userId = req.userId;
+  const questionId = parseInt(req.params.id);
+  const answers = req.body.answers;
+  const finalize = req.body.finalize;
+
+  // bad request
+  if (!answers || answers.length === 0 || isNaN(questionId)) {
+    res.sendStatus(400);
+    return;
+  }
+
+  findQuizInstance(userId)
+    .then(quizInstance => findQuizDetails(quizInstance.id, quizInstance.userId))
+    // update answer to quiz question
+    .then(async quizDetails => {
+      const quizQuestion = quizDetails.quizQuestions.find(quizQuestion => {
+        return quizQuestion.questionId === questionId;
+      });
+      if (!quizQuestion) {
+        return Promise.reject(new Error('Question not part of the instance'));
+      }
+
+      // update quizQuestion table with users answer
+      const question = await Question.find({where: {id: questionId}});
+      const correctAnswers = question.correctAnswers();
+
+      const correct = answers.every(answerIndex => {
+        return answerIndex < correctAnswers;
+      }) && answers.length === correctAnswers;
+
+      await quizQuestion.update({
+        correct,
+        answers
+      });
+
+      // continue
+      return Promise.resolve(quizDetails);
+    })
+    .then(async quizDetails => {
+      if (finalize) {
+        // return summary of finished quiz
+        res.json(await finalizeQuiz(quizDetails));
+      } else {
+        // confirm answer
+        res.sendStatus(204);
+      }
+    })
+    .catch(() => res.sendStatus(404));
+}
+
 module.exports = {
   getQuizzes,
   getQuizDetails,
   retrieveQuizInstance,
-  startQuizInstance
+  startQuizInstance,
+  answerQuestion
 };
 
 async function findQuizDetails(quizId, userId) {
@@ -92,5 +144,18 @@ async function createQuizInstance(userId) {
     quizQuestions: questions.map(questionId => ({questionId}))
   }, {
     include: [Quiz.Questions]
+  });
+}
+
+function finalizeQuiz(quizDetails) {
+  let percentage = 0;
+  quizDetails.quizQuestions.forEach(quizQuestion => {
+    percentage += quizQuestion.correct ? 1 : 0;
+  });
+
+  return quizDetails.update({
+    percentage,
+    timestamp: Date.now(),
+    elapsedTime: Date.now() - quizDetails.createdAt.getTime()
   });
 }
