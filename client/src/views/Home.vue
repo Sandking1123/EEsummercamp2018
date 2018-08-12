@@ -14,23 +14,11 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
       stories: []
     };
-  },
-  methods: {
-    getStoryLink(story) {
-      return `https://www.storyblok.com/${story.full_slug}`;
-    }
-  },
-  mounted() {
-    axios.get('https://api.storyblok.com/v1/cdn/stories?starts_with=tp&excluding_fields=body&excluding_ids=48471,48547,60491&token=dtONJHwmxhdJOwKxyjlqAgtt').then((res) => {
-      this.stories = res.data.stories;
-    });
   }
 };
 </script>
