@@ -5,22 +5,22 @@ function getQuizzes(req, res) {
   const userId = req.userId;
   Quiz.findAll({where: {userId}, raw: true})
     .then((quizzes) => res.json(quizzes))
-    .catch(() => res.status(404).json({}));
+    .catch((err) => res.status(404).send(err.message));
 }
 
 function getQuizDetails(req, res) {
   const userId = req.userId;
   findQuizDetails(req.params.id, userId)
     .then(quizDetails => res.json(quizDetails))
-    .catch(() => res.status(404).json({}));
+    .catch((err) => res.status(404).send(err.message));
 }
 
 function retrieveQuizInstance(req, res) {
   const userId = req.userId;
   findQuizInstance(userId)
-    .then(quizInstance => findQuizDetails(quizInstance.id, quizInstance.userId))
+    .then(({id, userId}) => findQuizDetails(id, userId))
     .then(quizDetails => res.json(quizDetails))
-    .catch(() => res.status(404).json({}));
+    .catch((err) => res.status(404).send(err.message));
 }
 
 function startQuizInstance(req, res) {
@@ -49,7 +49,7 @@ function answerQuestion(req, res) {
   }
 
   findQuizInstance(userId)
-    .then(quizInstance => findQuizDetails(quizInstance.id, quizInstance.userId))
+    .then(({id, userId}) => findQuizDetails(id, userId))
     // update answer to quiz question
     .then(async quizDetails => {
       const quizQuestion = quizDetails.quizQuestions.find(quizQuestion => {
@@ -60,7 +60,7 @@ function answerQuestion(req, res) {
       }
 
       // update quizQuestion table with users answer
-      const question = await Question.find({where: {id: questionId}});
+      const question = await Question.findOne({where: {id: questionId}});
       const correctAnswers = question.correctAnswers();
 
       const correct = answers.every(answerIndex => {
@@ -84,19 +84,15 @@ function answerQuestion(req, res) {
         res.sendStatus(204);
       }
     })
-    .catch(() => res.sendStatus(404));
+    .catch((err) => res.status(404).send(err.message));
 }
 
-module.exports = {
-  getQuizzes,
-  getQuizDetails,
-  retrieveQuizInstance,
-  startQuizInstance,
-  answerQuestion
-};
+/*
+ *  Helper functions
+ */
 
 async function findQuizDetails(quizId, userId) {
-  const quizDetails = await Quiz.find({
+  const quizDetails = await Quiz.findOne({
     where: {
       id: quizId,
       userId
@@ -115,7 +111,7 @@ async function findQuizDetails(quizId, userId) {
 
 async function findQuizInstance(userId) {
   // check if there is non-finished quiz (percentage no set)
-  const quizInstance = await Quiz.find({
+  const quizInstance = await Quiz.findOne({
     where: {
       userId,
       percentage: null
@@ -159,3 +155,11 @@ function finalizeQuiz(quizDetails) {
     elapsedTime: Date.now() - quizDetails.createdAt.getTime()
   });
 }
+
+module.exports = {
+  getQuizzes,
+  getQuizDetails,
+  retrieveQuizInstance,
+  startQuizInstance,
+  answerQuestion
+};
