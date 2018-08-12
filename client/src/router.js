@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
-import Callback from './views/Callback.vue';
+import Home from './views/Home';
+import Callback from './views/Callback';
 
 Vue.use(Router);
 
@@ -20,6 +20,7 @@ const router = new Router({
     }
   ]
 });
+
 // very basic "setup" of a global guard
 router.beforeEach((to, from, next) => {
   if (to.name === 'callback') { // check if "to"-route is "callback" and allow access

@@ -4,6 +4,7 @@ import router from './src/router';
 import auth from './src/auth';
 
 Vue.use(auth);
+
 Vue.config.productionTip = false;
 
 new Vue({
