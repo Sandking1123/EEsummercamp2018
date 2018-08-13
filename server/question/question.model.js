@@ -25,4 +25,14 @@ Question.prototype.filter = function filterQuestion() {
   return question;
 };
 
+Question.prototype.correctAnswers = function getCorrectAnswers() {
+  let correct = 0;
+  this.answers.forEach(answer => {
+    if (answer.correct) {
+      correct++;
+    }
+  });
+  return correct;
+};
+
 module.exports = Question;
