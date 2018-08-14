@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home';
-import Callback from './views/Callback';
+import Home from './views/Home.vue';
+import Callback from './views/Callback.vue';
 
 Vue.use(Router);
 
