@@ -1,30 +1,30 @@
 const Quiz = require('./quiz.model');
 const Question = require('../question/question.model');
 
-function getQuizzes(req, res) {
-  const userId = req.userId;
+function getQuizzes({user}, res) {
+  const userId = user.id;
   Quiz.findAll({where: {userId}, raw: true})
     .then((quizzes) => res.json(quizzes))
     .catch((err) => res.status(404).send(err.message));
 }
 
-function getQuizDetails(req, res) {
-  const userId = req.userId;
-  findQuizDetails(req.params.id, userId)
+function getQuizDetails({user, params}, res) {
+  const userId = user.id;
+  findQuizDetails(params.id, userId)
     .then(quizDetails => res.json(quizDetails))
     .catch((err) => res.status(404).send(err.message));
 }
 
-function retrieveQuizInstance(req, res) {
-  const userId = req.userId;
+function retrieveQuizInstance({user}, res) {
+  const userId = user.id;
   findQuizInstance(userId)
     .then(({id, userId}) => findQuizDetails(id, userId))
     .then(quizDetails => res.json(quizDetails))
     .catch((err) => res.status(404).send(err.message));
 }
 
-function startQuizInstance(req, res) {
-  const userId = req.userId;
+function startQuizInstance({user}, res) {
+  const userId = user.id;
   findQuizInstance(userId)
     // found instance, let the user decide what to do
     .then(quizInstance => res.status(302).json(quizInstance))
@@ -36,11 +36,11 @@ function startQuizInstance(req, res) {
     });
 }
 
-function answerQuestion(req, res) {
-  const userId = req.userId;
-  const questionId = parseInt(req.params.id);
-  const answers = req.body.answers;
-  const finalize = req.body.finalize;
+function answerQuestion({user, params, body}, res) {
+  const userId = user.id;
+  const questionId = parseInt(params.id);
+  const answers = body.answers;
+  const finalize = body.finalize;
 
   // bad request
   if (!answers || answers.length === 0 || isNaN(questionId)) {
