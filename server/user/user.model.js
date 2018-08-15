@@ -2,12 +2,11 @@ const Sequelize = require('sequelize');
 const database = require('../database');
 
 const User = database.define('user', {
-  googleId: {
-    type: Sequelize.INTEGER,
+  id: {
+    type: Sequelize.STRING,
     primaryKey: true
   },
-  firstName: Sequelize.STRING,
-  lastName: Sequelize.STRING
+  name: Sequelize.STRING
 });
 
 module.exports = User;

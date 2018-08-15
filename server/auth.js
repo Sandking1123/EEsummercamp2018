@@ -1,6 +1,7 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const passport = require('passport');
+const User = require('./user/user.model');
 
 var options = {};
 options.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -10,10 +11,18 @@ MIIDCTCCAfGgAwIBAgIJJ5oV5gr/hI8fMA0GCSqGSIb3DQEBCwUAMCIxIDAeBgNVBAMTF25pa29sb3Zz
 -----END CERTIFICATE-----
 `;
 
-passport.use(new JwtStrategy(options, (jwtPayload, done) => {
-  console.log('Token OK');
-  // TODO: authenticate user
-  done(false, true);
+passport.use(new JwtStrategy(options, ({sub, name}, done) => {
+  User.findOrCreate({
+    where: {id: sub},
+    defaults: {
+      id: sub,
+      name
+    }
+  })
+    .then(([user]) => {
+      done(null, user);
+    })
+    .catch(err => done(err, false));
 }));
 
 module.exports = () => passport.authenticate('jwt', { session: false });
