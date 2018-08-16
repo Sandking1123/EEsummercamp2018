@@ -151,8 +151,7 @@ function finalizeQuiz(quizDetails) {
 
   return quizDetails.update({
     percentage,
-    timestamp: Date.now(),
-    elapsedTime: Date.now() - quizDetails.createdAt.getTime()
+    timestamp: Date.now()
   });
 }
 

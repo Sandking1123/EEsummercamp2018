@@ -3,8 +3,7 @@ const database = require('../database');
 
 const Quiz = database.define('quiz', {
   percentage: Sequelize.DOUBLE,
-  timestamp: Sequelize.DATE,
-  elapsedTime: Sequelize.INTEGER
+  timestamp: Sequelize.DATE
 });
 
 // set relations
