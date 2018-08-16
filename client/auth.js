@@ -5,12 +5,9 @@ import Vue from 'vue';
 const webAuth = new auth0.WebAuth({
   domain: process.env.VUE_APP_AUTH0_DOMAIN,
   clientID: process.env.VUE_APP_AUTH0_CLIENTID,
-  // make sure this line is contains the port: 8080
-  redirectUri: 'http://localhost:8080/callback',
-  // we will use the api/v2/ to access the user information as payload
-  audience: 'https://00000.eu.auth0.com/api/v2/',
-  responseType: 'token id_token',
-  scope: 'openid profile' // define the scopes you want to use
+  redirectUri: process.env.VUE_APP_REDIRECTURI,
+  audience: process.env.VUE_APP_AUDIENCE,
+  responseType: 'token id_token'
 });
 const auth = new Vue({
   computed: {
