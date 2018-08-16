@@ -17,11 +17,14 @@ User.hasMany(Quiz, {foreignKey: 'userId'});
 
 // N to M
 // creates new table quizQuestions with these additional columns
-const QuizQuestions = database.define('quizQuestions', {
+Quiz.Questions = database.define('quizQuestions', {
   correct: Sequelize.BOOLEAN,
   answers: Sequelize.ARRAY(Sequelize.INTEGER)
 });
-Question.belongsToMany(Quiz, {through: QuizQuestions});
-Quiz.belongsToMany(Question, {through: QuizQuestions});
+Question.belongsToMany(Quiz, {through: Quiz.Questions});
+Quiz.belongsToMany(Question, {through: Quiz.Questions});
+// so we can join (include) quiz and quizQuestions tables
+Quiz.hasMany(Quiz.Questions);
+Quiz.Questions.belongsTo(Quiz);
 
 module.exports = Quiz;

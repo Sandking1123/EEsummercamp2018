@@ -3,8 +3,8 @@ import Vue from 'vue';
 
 // exchange the object with your own from the setup step above.
 const webAuth = new auth0.WebAuth({
-  domain: '00000.eu.auth0.com',
-  clientID: 'mHHqsxfNrgrbQhkMVYMapbXCh2GpdE5c',
+  domain: process.env.AUTH0_DOMAIN,
+  clientID: process.env.AUTH0_CLIENTID,
   // make sure this line is contains the port: 8080
   redirectUri: 'http://localhost:8080/callback',
   // we will use the api/v2/ to access the user information as payload
