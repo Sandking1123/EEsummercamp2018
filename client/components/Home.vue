@@ -1,11 +1,17 @@
 <template>
   <div class="dashboard">
-    <navbar></navbar>
+    <v-app>
+      <navbar></navbar>
+      <button @click="doMe">btn</button>
+      <history></history>
+    </v-app>
   </div>
 </template>
 
 <script>
 import navbar from './Navbar';
+// for testing
+import history from './History';
 
 export default {
   name: 'app',
@@ -13,8 +19,14 @@ export default {
     return {
     };
   },
+  methods: {
+    doMe() {
+      console.log(this.$auth.token);
+    }
+  },
   components: {
-    navbar
+    navbar,
+    history
   }
 };
 </script>
