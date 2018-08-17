@@ -2,7 +2,7 @@
   <div class="dashboard">
     <v-app>
       <navbar></navbar>
-      <button @click="doMe">btn</button>
+      <!-- <button @click="doMe">btn</button> -->
       <history></history>
     </v-app>
   </div>
