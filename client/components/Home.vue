@@ -1,6 +1,8 @@
 <template>
-  <div class="dashboard">
-    <navbar></navbar>
+  <div class="home">
+    <v-app>
+      <navbar></navbar>
+    </v-app>
   </div>
 </template>
 
@@ -8,7 +10,7 @@
 import navbar from './Navbar';
 
 export default {
-  name: 'app',
+  name: 'home',
   data() {
     return {
     };

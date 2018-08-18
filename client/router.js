@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './components/Home.vue';
 import Callback from './components/Callback.vue';
+import HistoryComp from './components/History.vue';
 
 Vue.use(Router);
 
@@ -17,6 +18,11 @@ const router = new Router({
       path: '/callback',
       name: 'callback',
       component: Callback
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: HistoryComp
     }
   ]
 });
