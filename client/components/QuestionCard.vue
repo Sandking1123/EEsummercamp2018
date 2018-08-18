@@ -3,7 +3,11 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-card-media>
-          <question :question="fullQuestion.question" />
+          <question
+            @select="selectAnswer"
+            :question="fullQuestion.question"
+            :marked-answers="markedAnswers"
+            :selected-answer="selectedAnswer" />
         </v-card-media>
         <v-card-text>
           <answers :answers="fullQuestion.answers" />
@@ -31,7 +35,18 @@ import Answers from './question-card/Answers.vue';
 export default {
   name: 'question-card',
   props: {
-    fullQuestion: {type: Object, required: true}
+    fullQuestion: {type: Object, required: true},
+    markedAnswers: {type: Array, required: true}
+  },
+  data() {
+    return {
+      selectedAnswer: 0
+    };
+  },
+  methods: {
+    selectAnswer(id) {
+      this.selectedAnswer = id;
+    }
   },
   components: {
     Question,
