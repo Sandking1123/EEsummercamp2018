@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <navbar></navbar>
+    <v-app>
+      <navbar></navbar>
+    </v-app>
   </div>
 </template>
 
