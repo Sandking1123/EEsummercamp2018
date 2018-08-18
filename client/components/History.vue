@@ -4,7 +4,10 @@
       <v-flex xs12 sm6 offset-sm3>
         <h2>History</h2>
         <v-list v-if="quizHistory.length !== 0" class="quiz-list">
-          <v-list-tile v-for="(item, index) in quizHistory" :key="item.id" @click="getSummary(item)">
+          <v-list-tile
+            v-for="(item, index) in quizHistory"
+            :key="item.id"
+            @click="getSummary(item)">
             <v-list-tile-content class="title-content">
               <v-list-tile-title class="title-text">
                 {{ nameOfQuiz + " " + (index+1) + ". - "+ item.percentage +
