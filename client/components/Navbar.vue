@@ -11,7 +11,7 @@
             &nbsp;{{ $auth.user.name }}
             <v-icon></v-icon>
           </v-btn>
-          <v-list dark color="#263238" round>
+          <v-list dark>
             <v-list-tile @click="$auth.logout()">
               <v-list-tile-title> LOGOUT </v-list-tile-title>
             </v-list-tile>
