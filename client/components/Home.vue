@@ -9,7 +9,6 @@ import navbar from './Navbar';
 
 export default {
   name: 'home',
-  history: false,
   data() {
     return {
     };

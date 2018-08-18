@@ -16,7 +16,6 @@
               </v-list-tile>
             </v-list>
           </v-menu>
-          <!-- <v-btn @click="$auth.logout()" round>Logout</v-btn> -->
         </v-toolbar-items>
       </v-toolbar>
     </v-app>
