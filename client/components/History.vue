@@ -3,11 +3,12 @@
     <v-layout d-flex center>
       <v-flex xs12 sm6 offset-sm3>
         <h2>History</h2>
-        <v-list v-if="quizHistory.length !== 0" id="list">
+        <v-list v-if="quizHistory.length !== 0" class="quiz-list">
           <v-list-tile v-for="(item, index) in quizHistory" :key="item.id" @click="getSummary(item)">
-            <v-list-tile-content id="titleContent">
-              <v-list-tile-title id="titleText">
-                {{ nameOfQuiz +" "+ (index+1) + ". - "+ item.percentage + "% "+ getNormalDate(item.createdAt) }}
+            <v-list-tile-content class="title-content">
+              <v-list-tile-title class="title-text">
+                {{ nameOfQuiz + " " + (index+1) + ". - "+ item.percentage +
+                "% " + getNormalDate(item.createdAt) }}
               </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -21,8 +22,6 @@
 </template>
 
 <script>
-import 'vuetify/dist/vuetify.min.css';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import { quizApi } from '../api';
 export default {
   name: 'history',
@@ -38,34 +37,33 @@ export default {
       return date.toLocaleString();
     },
     getSummary(item) {
-      // opens summry of that specific quiz
+      // opens summary of that specific quiz
     }
   },
   created: function getHistory() {
     quizApi.getHistory()
       .then((response) => {
-        console.log(response.data);
         return response.data;
-      }) // response is request and .data is json
-      .then((history) => (this.quizHistory = history)); // history is .data
+      })
+      .then((history) => (this.quizHistory = history));
   }
 };
 </script>
+
 <style scoped>
-#list {
+.quiz-list {
   border: 1px solid #90A4AE;
   border-radius: 8px;
   background: #B0BEC5;
 }
-#titleContent {
+.title-content {
   background-color: #B0BEC5;
 }
-#titleContent:hover{
+.title-content:hover{
   background-color: #CFD8DC;
   border-radius: 6px;
 }
-#titleText {
+.title-text {
   text-align: center;
-
 }
 </style>
