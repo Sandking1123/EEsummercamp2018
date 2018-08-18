@@ -3,20 +3,23 @@
     <v-layout d-flex center>
       <v-flex xs12 sm6 offset-sm3>
         <h2>History</h2>
-        <v-list id="list">
+        <v-list v-if="quizHistory.length !== 0" id="list">
           <v-list-tile v-for="(item, index) in quizHistory" :key="item.id" @click="getSummary(item)">
             <v-list-tile-content id="titleContent">
               <v-list-tile-title id="titleText">
                 {{ nameOfQuiz +" "+ (index+1) + ". - "+ item.percentage + "% "+ getNormalDate(item.createdAt) }}
               </v-list-tile-title>
-              <v-divider></v-divider>
             </v-list-tile-content>
           </v-list-tile>
+        </v-list>
+        <v-list v-else>
+          <h3>There are no completed quizzes.</h3>
         </v-list>
       </v-flex>
     </v-layout>
   </div>
 </template>
+
 <script>
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
@@ -40,7 +43,10 @@ export default {
   },
   created: function getHistory() {
     quizApi.getHistory()
-      .then((response) => response.data) // response is request and .data is json
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      }) // response is request and .data is json
       .then((history) => (this.quizHistory = history)); // history is .data
   }
 };
