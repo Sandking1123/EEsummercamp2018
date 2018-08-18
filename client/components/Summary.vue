@@ -1,23 +1,29 @@
 <template>
   <div>
-    <h3> SUMMARY</h3>
+    <h2> Summary</h2>
+    {{ quizDetails }}
   </div>
 </template>
 
 <script>
 import { quizApi } from '../api';
 export default {
-  name: 'summaryofquiz',
+  name: 'summarycomp',
+  props: {
+    guizId: {
+      type: String,
+      required: true
+    }
+  },
   data() {
-    //
     return {
       quizDetails: ''
     };
   },
   created: function getDetails() {
-    quizApi.getQuizDetails(1)
+    console.log(this.guizId);
+    quizApi.getQuizDetails(this.guizId) // prop is supposed to go this.quizId
       .then((request) => {
-        console.log(request.data);
         return request.data;
       })
       .then((details) => (this.quizDetails = details));

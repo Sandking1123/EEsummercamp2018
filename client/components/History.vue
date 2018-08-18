@@ -7,7 +7,7 @@
           <v-list-tile
             v-for="(item, index) in quizHistory"
             :key="item.id"
-            @click="getSummary(item)">
+            @click="getSummary(item.id)">
             <v-list-tile-content class="title-content">
               <v-list-tile-title class="title-text">
                 {{ nameOfQuiz + " " + (index+1) + ". - "+ item.percentage +
@@ -21,11 +21,13 @@
         </v-list>
       </v-flex>
     </v-layout>
+    <summary-comp :quizId="idOfQuiz"></summary-comp>
   </div>
 </template>
 
 <script>
 import { quizApi } from '../api';
+import summaryComp from './Summary';
 export default {
   name: 'history',
   data() {
@@ -39,8 +41,9 @@ export default {
       const date = new Date(longDate);
       return date.toLocaleString();
     },
-    getSummary(item) {
-      // opens summary of that specific quiz
+    getSummary(quizId) {
+      const idOfQuiz = quizId;
+      return idOfQuiz;
     }
   },
   created: function getHistory() {
@@ -49,6 +52,9 @@ export default {
         return response.data;
       })
       .then((history) => (this.quizHistory = history));
+  },
+  components: {
+    summaryComp
   }
 };
 </script>
@@ -57,14 +63,13 @@ export default {
 .quiz-list {
   border: 1px solid #90A4AE;
   border-radius: 8px;
-  background: #B0BEC5;
+  background: #B0BEC5 !important;
 }
 .title-content {
   background-color: #B0BEC5;
 }
 .title-content:hover{
   background-color: #CFD8DC;
-  border-radius: 6px;
 }
 .title-text {
   text-align: center;

@@ -3,7 +3,6 @@
     <v-app>
       <navbar></navbar>
       <history-comp></history-comp>
-      <summary-comp></summary-comp>
     </v-app>
     <footer-comp></footer-comp>
   </div>
@@ -13,7 +12,6 @@
 import navbar from './Navbar';
 import footerComp from './Footer';
 import historyComp from './History';
-import summaryComp from './Summary';
 
 export default {
   name: 'home',
@@ -24,7 +22,6 @@ export default {
   components: {
     navbar,
     historyComp,
-    summaryComp,
     footerComp
   }
 };
