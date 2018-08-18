@@ -25,7 +25,7 @@ export default {
     selectedAnswer: {type: Number, required: true}
   },
   computed: {
-    splittedQuestion: function split() {
+    splittedQuestion() {
       return this.question.split('???');
     }
   },

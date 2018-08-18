@@ -10,7 +10,9 @@
             :selected-answer="selectedAnswer" />
         </v-card-media>
         <v-card-text>
-          <answers :answers="fullQuestion.answers" />
+          <answers
+            @set-answer="setAnswer"
+            :answers="fullQuestion.answers" />
         </v-card-text>
         <v-card-actions>
           <!-- TODO: move this to props -->
@@ -36,16 +38,26 @@ export default {
   name: 'question-card',
   props: {
     fullQuestion: {type: Object, required: true},
-    markedAnswers: {type: Array, required: true}
+    currentAnswers: {type: Array, required: true}
   },
   data() {
     return {
       selectedAnswer: 0
     };
   },
+  computed: {
+    markedAnswers() {
+      return this.currentAnswers.map(id => {
+        return id !== null ? this.fullQuestion.answers[id].text : '???';
+      });
+    }
+  },
   methods: {
-    selectAnswer(id) {
-      this.selectedAnswer = id;
+    selectAnswer(index) {
+      this.selectedAnswer = index;
+    },
+    setAnswer(answerId) {
+      this.$emit('set-answer', this.selectedAnswer, answerId);
     }
   },
   components: {
