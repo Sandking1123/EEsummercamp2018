@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar class="ma-3" dark color="#263238">
-      <img src="https://a.storyblok.com/f/39898/1024x1024/dea4e1b62d/vue-js_logo-svg.png" width="40" height="40">
+      <img src="https://www.graphicsprings.com/filestorage/stencils/3c59de7693edb9a01d13e3b980f7261d.png?width=500&height=500" width="50" height="50">
       <v-toolbar-title>Test your Knowledge</v-toolbar-title>
       <v-spacer></v-spacer>
       <img id="img" :src="$auth.user.picture" width="35" height="35">
