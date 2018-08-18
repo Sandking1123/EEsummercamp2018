@@ -3,15 +3,11 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-card-media>
-          <v-container fill-height fluid>
-            <v-layout fill-height>
-              <!-- TODO: add question -->
-            </v-layout>
-          </v-container>
+          <question :question="fullQuestion.question" />
         </v-card-media>
-        <v-card-title>
-          <!-- TODO: add answers -->
-        </v-card-title>
+        <v-card-text>
+          <answers :answers="fullQuestion.answers" />
+        </v-card-text>
         <v-card-actions>
           <!-- TODO: move this to props -->
           <v-layout fill-height>
@@ -29,8 +25,18 @@
 </template>
 
 <script>
+import Question from './question-card/Question.vue';
+import Answers from './question-card/Answers.vue';
+
 export default {
-  name: 'question-card'
+  name: 'question-card',
+  props: {
+    fullQuestion: {type: Object, required: true}
+  },
+  components: {
+    Question,
+    Answers
+  }
 };
 </script>
 
