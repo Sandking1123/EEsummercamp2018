@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import Question from './question-card/Question.vue';
-import Answers from './question-card/Answers.vue';
+import Question from './Question.vue';
+import Answers from './Answers.vue';
 
 export default {
   name: 'question-card',

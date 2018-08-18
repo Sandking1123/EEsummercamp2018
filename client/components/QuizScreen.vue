@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import questionCard from './QuestionCard';
+import questionCard from './question-card/QuestionCard';
 import { questionApi } from '../api';
 
 export default {
