@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex xs12 sm6 offset-sm3>
+    <v-flex>
       <v-card>
         <v-card-media>
           <question
@@ -14,17 +14,6 @@
             @set-answer="setAnswer"
             :answers="fullQuestion.answers" />
         </v-card-text>
-        <v-card-actions>
-          <!-- TODO: move this to props -->
-          <v-layout fill-height>
-            <v-flex>
-              <v-btn flat color="orange">Previous</v-btn>
-            </v-flex>
-            <v-flex>
-              <v-btn flat color="orange">Next</v-btn>
-            </v-flex>
-          </v-layout>
-        </v-card-actions>
       </v-card>
     </v-flex>
   </v-layout>

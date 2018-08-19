@@ -1,11 +1,25 @@
 <template>
-  <v-layout>
-    <question-card
-      v-if="questions.length > 0"
-      @set-answer="setAnswer"
-      :full-question="questions[current].question"
-      :current-answers="questions[current].answers" />
-  </v-layout>
+  <v-container align-center fill-height>
+    <v-flex>
+      <v-btn
+        @click="changeQuestion(-1)"
+        flat
+        color="orange">Previous</v-btn>
+    </v-flex>
+    <v-flex xs6>
+      <question-card
+        v-if="questions.length > 0"
+        @set-answer="setAnswer"
+        :full-question="questions[current].question"
+        :current-answers="questions[current].answers" />
+    </v-flex>
+    <v-flex>
+      <v-btn
+        @click="changeQuestion(1)"
+        flat
+        color="orange">Next</v-btn>
+    </v-flex>
+  </v-container>
 </template>
 
 <script>
@@ -41,6 +55,12 @@ export default {
           const answers = new Array(noAnswers).fill(null);
           this.questions.push({question, answers});
         });
+    },
+    changeQuestion(step) {
+      const nextPos = this.current + step;
+      if (nextPos >= 0 && nextPos < this.questions.length) {
+        this.current = nextPos;
+      }
     }
   },
   created: function startQuiz() {
