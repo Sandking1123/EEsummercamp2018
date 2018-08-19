@@ -21,7 +21,7 @@
         </v-list>
       </v-flex>
     </v-layout>
-    <summary-comp :quizId="idOfQuiz"></summary-comp>
+    <summary-comp v-if="Clicked" :quizId="idOfQuiz"></summary-comp>
   </div>
 </template>
 
@@ -33,7 +33,9 @@ export default {
   data() {
     return {
       nameOfQuiz: 'Quiz',
-      quizHistory: ''
+      quizHistory: '',
+      idOfQuiz: '',
+      Clicked: false
     };
   },
   methods: {
@@ -42,8 +44,9 @@ export default {
       return date.toLocaleString();
     },
     getSummary(quizId) {
-      const idOfQuiz = quizId;
-      return idOfQuiz;
+      this.idOfQuiz = quizId;
+      console.log(this.idOfQuiz);
+      this.Clicked = true;
     }
   },
   created: function getHistory() {
