@@ -1,14 +1,14 @@
 <template>
   <v-data-table
     :items="entries"
-    :headers="['Rank', 'Name', 'Score']"
+    :headers="[{name: 'Rank'}, {name: 'Name'}, {name:'Score'}]"
     class="elevation-1"
     hide-actions>
     <template slot-scope="props" slot="headers">
       <th
         v-for="header in props.headers"
-        :key="header">
-        {{ header }}
+        :key="header.name">
+        {{ header.name }}
       </th>
     </template>
     <template slot-scope="props" slot="items">
