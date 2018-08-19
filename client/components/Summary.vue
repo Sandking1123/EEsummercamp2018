@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2> Summary</h2>
+    <br>
+    <h2> Summary of Quiz {{ index }}</h2>
     {{ quizDetails }}
   </div>
 </template>
@@ -10,19 +11,20 @@ import { quizApi } from '../api';
 export default {
   name: 'summarycomp',
   props: {
-    guizId: {
-      type: String,
-      required: true
-    }
+    quizId: { type: Number, required: true },
+    index: { type: Number, required: true }
   },
   data() {
     return {
       quizDetails: ''
     };
   },
+  updated() {
+    //
+  },
   created: function getDetails() {
-    console.log(this.guizId);
-    quizApi.getQuizDetails(this.guizId) // prop is supposed to go this.quizId
+    console.log(this.quizId);
+    quizApi.getQuizDetails(this.quizId) // prop is supposed to go this.quizId
       .then((request) => {
         return request.data;
       })

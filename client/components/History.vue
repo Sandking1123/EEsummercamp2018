@@ -7,7 +7,7 @@
           <v-list-tile
             v-for="(item, index) in quizHistory"
             :key="item.id"
-            @click="getSummary(item.id)">
+            @click="getSummary(item, index)">
             <v-list-tile-content class="title-content">
               <v-list-tile-title class="title-text">
                 {{ nameOfQuiz + " " + (index+1) + ". - "+ item.percentage +
@@ -21,7 +21,7 @@
         </v-list>
       </v-flex>
     </v-layout>
-    <summary-comp v-if="Clicked" :quizId="idOfQuiz"></summary-comp>
+    <summary-comp v-if="Clicked" :quizId="idOfQuiz" :index="i"></summary-comp>
   </div>
 </template>
 
@@ -35,6 +35,7 @@ export default {
       nameOfQuiz: 'Quiz',
       quizHistory: '',
       idOfQuiz: '',
+      i: 0,
       Clicked: false
     };
   },
@@ -43,9 +44,10 @@ export default {
       const date = new Date(longDate);
       return date.toLocaleString();
     },
-    getSummary(quizId) {
-      this.idOfQuiz = quizId;
-      console.log(this.idOfQuiz);
+    getSummary(quiz, index) {
+      this.Clicked = false;
+      this.idOfQuiz = quiz.id;
+      this.i = index + 1;
       this.Clicked = true;
     }
   },
