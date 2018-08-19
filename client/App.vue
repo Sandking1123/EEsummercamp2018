@@ -1,13 +1,17 @@
 <template>
   <v-app id="app">
+    <navbar />
     <router-view></router-view>
   </v-app>
 </template>
 
 <script>
+import navbar from './components/Navbar';
+
 export default {
   name: 'app',
   components: {
+    navbar
   }
 };
 </script>
