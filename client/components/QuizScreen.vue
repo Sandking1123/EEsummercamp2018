@@ -56,16 +56,27 @@ export default {
           this.questions.push({question, answers});
         });
     },
+    sendAnswer(finalize) {
+      const current = this.questions[this.current];
+      const questionId = current.question.id;
+      return quizApi.answerQuestion(questionId, current.answers, finalize);
+    },
     changeQuestion(step) {
       const nextPos = this.current + step;
       if (nextPos >= 0 && nextPos < this.questions.length) {
+        this.sendAnswer();
         this.current = nextPos;
+      } else if (nextPos === this.questions.length) {
+        // TODO: alert user that this will end the quiz
+        this.sendAnswer(true)
+          .then(({data}) => console.log(data))
+          // TODO: go to summary
+          .then(() => this.$router.replace('history'));
       }
     }
   },
   created: function startQuiz() {
     quizApi.createInstance()
-      .then(response => response.data)
       .catch(error => {
         if (error.response && error.response.status === 302) {
           // TODO prompt user to choose what to to
