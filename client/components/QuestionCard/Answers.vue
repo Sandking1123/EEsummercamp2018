@@ -4,7 +4,7 @@
       v-for="answer in answers"
       :key="answer.id"
       @click="setAnswer(answer.id)">
-      {{ answer.text }}
+      <v-btn class="btn" flat color="black">{{ answer.text }}</v-btn>
     </v-flex>
   </v-layout>
 </template>
@@ -22,3 +22,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .btn {
+    text-transform: none
+  }
+</style>
