@@ -1,23 +1,23 @@
 <template>
   <v-container align-center fill-height>
-    <v-flex>
+    <v-flex xs2>
       <v-btn
         @click="changeQuestion(-1)"
         flat
-        color="orange">Previous</v-btn>
+        color="orange">{{ backwardButtonText[current === 0 ? 1 : 0] }}</v-btn>
     </v-flex>
-    <v-flex xs6>
+    <v-flex xs8>
       <question-card
         v-if="quizQuestions[current] && quizQuestions[current].question"
         @set-answer="setAnswer"
         :full-question="quizQuestions[current].question"
         :current-answers="quizQuestions[current].answers" />
     </v-flex>
-    <v-flex>
+    <v-flex xs2>
       <v-btn
         @click="changeQuestion(1)"
         flat
-        color="orange">Next</v-btn>
+        color="orange">{{ forwardButtonText[current === 9 ? 1 : 0] }}</v-btn>
     </v-flex>
   </v-container>
 </template>
@@ -31,7 +31,9 @@ export default {
   data() {
     return {
       current: 0,
-      quizQuestions: []
+      quizQuestions: [],
+      backwardButtonText: ['previous', 'quit'],
+      forwardButtonText: ['next', 'finish']
     };
   },
   methods: {
@@ -73,7 +75,10 @@ export default {
         this.sendAnswer(true)
           .then(({data}) => console.log(data))
           // TODO: go to summary
-          .then(() => this.$router.replace('history'));
+          .then(() => this.$router.replace({name: 'history'}));
+      } else if (nextPos === -1) {
+        this.sendAnswer(true)
+          .then(() => this.$router.replace({name: 'home'}));
       }
     }
   },
