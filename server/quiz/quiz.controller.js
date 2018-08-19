@@ -63,9 +63,9 @@ function answerQuestion({user, params, body}, res) {
       const question = await Question.findOne({where: {id: questionId}});
       const correctAnswers = question.correctAnswers();
 
-      const correct = answers.every(answerIndex => {
-        return answerIndex < correctAnswers;
-      }) && answers.length === correctAnswers;
+      const correct = answers.every((answerIndex, index) => {
+        return answerIndex === correctAnswers[index];
+      }) && answers.length === correctAnswers.length;
 
       await quizQuestion.update({
         correct,
