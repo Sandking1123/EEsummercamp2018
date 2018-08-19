@@ -51,8 +51,14 @@ export default {
       questionApi.getQuestion(id)
         .then(response => response.data)
         .then(question => {
-          const noAnswers = (question.question.match(/\?\?\?/g) || []).length;
-          const answers = new Array(noAnswers).fill(null);
+          let answers;
+          const qq = this.quiz.quizQuestions.find(qq => qq.questionId === id);
+          if (qq.answers === null) {
+            const noAnswers = (question.question.match(/\?\?\?/g) || []).length;
+            answers = new Array(noAnswers).fill(null);
+          } else {
+            answers = qq.answers;
+          }
           this.questions.push({question, answers});
         });
     },
