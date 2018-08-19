@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      selectedAnswer: 0
+      prevSelectedAnswer: 0
     };
   },
   computed: {
@@ -39,6 +39,20 @@ export default {
       return this.currentAnswers.map(id => {
         return id !== null ? this.fullQuestion.answers[id].text : '???';
       });
+    },
+    selectedAnswer: {
+      get: function () {
+        let selected = 0;
+        if (this.prevSelectedAnswer < this.currentAnswers.length) {
+          selected = this.prevSelectedAnswer;
+        }
+        return selected;
+      },
+      set: function (index) {
+        if (index >= 0 && index < this.currentAnswers.length) {
+          this.prevSelectedAnswer = index;
+        }
+      }
     }
   },
   methods: {
@@ -47,6 +61,12 @@ export default {
     },
     setAnswer(answerId) {
       this.$emit('set-answer', this.selectedAnswer, answerId);
+      this.selectedAnswer++;
+    }
+  },
+  watch: {
+    fullQuestion: function () {
+      this.selectedAnswer = 0;
     }
   },
   components: {
