@@ -10,14 +10,15 @@
 
 <script>
 import questionCard from './QuestionCard';
-import { questionApi } from '../api';
+import { questionApi, quizApi } from '../api';
 
 export default {
   name: 'quiz-screen',
   data() {
     return {
       current: 0,
-      questions: []
+      questions: [],
+      quiz: {}
     };
   },
   methods: {
@@ -31,17 +32,37 @@ export default {
       newAnswers[answerIndex] = answerId;
       // trigger update
       this.questions[this.current].answers = newAnswers;
+    },
+    fetchQuestion(id) {
+      questionApi.getQuestion(id)
+        .then(response => response.data)
+        .then(question => {
+          const noAnswers = (question.question.match(/\?\?\?/g) || []).length;
+          const answers = new Array(noAnswers).fill(null);
+          this.questions.push({question, answers});
+        });
     }
   },
-  // TODO: start quiz and fetch all questions
-  created: function getQuestion() {
-    questionApi.getQuestion(10)
+  created: function startQuiz() {
+    quizApi.createInstance()
       .then(response => response.data)
-      .then(question => {
-        const noAnswers = (question.question.match(/\?\?\?/g) || []).length;
-        const answers = new Array(noAnswers).fill(null);
-        this.questions.push({question, answers});
+      .catch(error => {
+        if (error.response && error.response.status === 302) {
+          // TODO prompt user to choose what to to
+          return quizApi.getInstance();
+        } else {
+          return Promise.reject(error);
+        }
+      })
+      .then(response => response.data)
+      .then(quiz => {
+        this.quiz = quiz;
+        const promises = quiz.quizQuestions.map(qq => {
+          return this.fetchQuestion(qq.questionId);
+        });
+        return Promise.all(promises);
       });
+    // TODO handle errors
   },
   components: {
     questionCard
