@@ -10,7 +10,6 @@
 <script>
 import navbar from './Navbar';
 import footerComp from './Footer';
-import historyComp from './History';
 
 export default {
   name: 'home',
@@ -20,7 +19,6 @@ export default {
   },
   components: {
     navbar,
-    historyComp,
     footerComp
   }
 };

@@ -10,7 +10,6 @@
 export default {
   name: 'footercomponent',
   data: () => ({
-
   })
 };
 </script>
