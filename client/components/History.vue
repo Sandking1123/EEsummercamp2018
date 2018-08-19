@@ -45,7 +45,6 @@ export default {
       return date.toLocaleString();
     },
     getSummary(quiz, index) {
-      this.Clicked = false;
       this.idOfQuiz = quiz.id;
       this.i = index + 1;
       this.Clicked = true;
@@ -56,7 +55,8 @@ export default {
       .then((response) => {
         return response.data;
       })
-      .then((history) => (this.quizHistory = history));
+      .then((history) => (this.quizHistory = history))
+      .catch((err) => console.log(err));
   },
   components: {
     summaryComp
