@@ -20,7 +20,7 @@
           </p>
           <div v-if="comeFromHistory">
             <v-card-actions>
-              <v-btn @click="retakeQuiz(quizDetails.id)" flat color="orange">Retake</v-btn>
+              <v-btn @click="rewiewQuiz(quizDetails.id)" flat color="orange">Review</v-btn>
             </v-card-actions>
           </div>
           <div v-else>
@@ -70,7 +70,7 @@ export default {
       const milisec = fnsDate.differenceInMilliseconds(this.quizDetails.timestamp, this.quizDetails.createdAt);
       this.time = fnsDate.format(milisec, 'mm:ss');
     },
-    retakeQuiz(quizId) {
+    rewiewQuiz(quizId) {
       // switch to component for retaking quiz
     }
   },
