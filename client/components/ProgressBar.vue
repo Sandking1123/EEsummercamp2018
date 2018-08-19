@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-progress-linear v-model="valueDeterminate"></v-progress-linear>
-    <v-btn-toggle v-model="toggle_exclusive">
+    <v-btn-toggle v-model="toggleExclusive">
       <v-btn id="q1" color="">Question 1</v-btn>
       <v-btn id="q2" color="">Question 2</v-btn>
       <v-btn id="q3" color="">Question 3</v-btn>
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       valueDeterminate: 50,
-      toggle_exclusive: 2
+      toggleExclusive: 2
     };
   }
 };
