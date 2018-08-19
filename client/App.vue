@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <navbar />
+    <navbar v-if="$route.name !== 'callback'" />
     <router-view></router-view>
   </v-app>
 </template>
