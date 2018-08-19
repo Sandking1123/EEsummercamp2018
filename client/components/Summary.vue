@@ -4,7 +4,7 @@
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
           <div>
-            <h2 class ="summaryh2">Summary</h2>
+            <h2 class ="summary">Summary</h2>
             <p>{{ message }}</p>
           </div>
           <div>
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style scoped>
-.summaryh2 {
+.summary {
   margin: 0 0 10px 0;
 }
 </style>

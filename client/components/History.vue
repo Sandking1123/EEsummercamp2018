@@ -25,8 +25,7 @@
     <summary-comp
       v-if="clicked"
       :comeFromHistory="true"
-      :quizId="idOfQuiz"
-      :index="i">
+      :quizId="idOfQuiz">
     </summary-comp>
   </div>
 </template>
