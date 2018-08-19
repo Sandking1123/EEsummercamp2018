@@ -26,10 +26,10 @@ Question.prototype.filter = function filterQuestion() {
 };
 
 Question.prototype.correctAnswers = function getCorrectAnswers() {
-  let correct = 0;
+  const correct = [];
   this.answers.forEach(answer => {
     if (answer.correct) {
-      correct++;
+      correct.push(answer.correctIndex);
     }
   });
   return correct;

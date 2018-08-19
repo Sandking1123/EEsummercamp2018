@@ -31,7 +31,8 @@ function startQuizInstance({user}, res) {
     // create new instance
     .catch(() => {
       createQuizInstance(userId)
-        .then(createdQuizInstance => res.status(201).json(createdQuizInstance))
+        .then(({id}) => findQuizDetails(id, userId))
+        .then(quizDetails => res.status(201).json(quizDetails))
         .catch((err) => res.status(401).json(err));
     });
 }
@@ -63,9 +64,9 @@ function answerQuestion({user, params, body}, res) {
       const question = await Question.findOne({where: {id: questionId}});
       const correctAnswers = question.correctAnswers();
 
-      const correct = answers.every(answerIndex => {
-        return answerIndex < correctAnswers;
-      }) && answers.length === correctAnswers;
+      const correct = answers.every((answerIndex, index) => {
+        return answerIndex === correctAnswers[index];
+      }) && answers.length === correctAnswers.length;
 
       await quizQuestion.update({
         correct,
@@ -99,7 +100,10 @@ async function findQuizDetails(quizId, userId) {
     },
     include: [{
       model: Quiz.Questions
-    }]
+    }],
+    order: [
+      [Quiz.Questions, 'questionId', 'asc']
+    ]
   });
 
   if (quizDetails == null) {
