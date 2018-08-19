@@ -3,11 +3,13 @@
     <v-app>
       <navbar></navbar>
     </v-app>
+    <footer-comp></footer-comp>
   </div>
 </template>
 
 <script>
 import navbar from './Navbar';
+import footerComp from './Footer';
 
 export default {
   name: 'home',
@@ -16,11 +18,8 @@ export default {
     };
   },
   components: {
-    navbar
+    navbar,
+    footerComp
   }
 };
 </script>
-
-<style scoped>
-
-</style>

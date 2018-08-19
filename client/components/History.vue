@@ -10,7 +10,7 @@
             @click="getSummary(item)">
             <v-list-tile-content class="title-content">
               <v-list-tile-title class="title-text">
-                {{ nameOfQuiz + " " + (index+1) + ". - "+ item.percentage +
+                {{ nameOfQuiz + " " + (index+1) + ". - "+ (item.percentage*10) +
                 "% " + getNormalDate(item.createdAt) }}
               </v-list-tile-title>
             </v-list-tile-content>
@@ -21,17 +21,26 @@
         </v-list>
       </v-flex>
     </v-layout>
+    <br>
+    <summary-comp
+      v-if="clicked"
+      :comeFromHistory="true"
+      :quizId="idOfQuiz">
+    </summary-comp>
   </div>
 </template>
 
 <script>
 import { quizApi } from '../api';
+import summaryComp from './Summary';
 export default {
   name: 'history',
   data() {
     return {
       nameOfQuiz: 'Quiz',
-      quizHistory: ''
+      quizHistory: '',
+      idOfQuiz: '',
+      clicked: false
     };
   },
   methods: {
@@ -39,8 +48,9 @@ export default {
       const date = new Date(longDate);
       return date.toLocaleString();
     },
-    getSummary(item) {
-      // opens summary of that specific quiz
+    getSummary(quiz) {
+      this.idOfQuiz = quiz.id;
+      this.clicked = true;
     }
   },
   created: function getHistory() {
@@ -48,7 +58,11 @@ export default {
       .then((response) => {
         return response.data;
       })
-      .then((history) => (this.quizHistory = history));
+      .then((history) => (this.quizHistory = history))
+      .catch((err) => console.log(err));
+  },
+  components: {
+    summaryComp
   }
 };
 </script>
@@ -57,14 +71,13 @@ export default {
 .quiz-list {
   border: 1px solid #90A4AE;
   border-radius: 8px;
-  background: #B0BEC5;
+  background: #B0BEC5 !important;
 }
 .title-content {
   background-color: #B0BEC5;
 }
 .title-content:hover{
   background-color: #CFD8DC;
-  border-radius: 6px;
 }
 .title-text {
   text-align: center;
