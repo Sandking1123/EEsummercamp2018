@@ -2,7 +2,6 @@
   <div class="home">
     <v-app>
       <navbar></navbar>
-      <history-comp></history-comp>
     </v-app>
     <footer-comp></footer-comp>
   </div>
@@ -26,7 +25,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-
-</style>
