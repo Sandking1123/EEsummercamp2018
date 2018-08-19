@@ -8,10 +8,10 @@
     </v-flex>
     <v-flex xs6>
       <question-card
-        v-if="questions.length > 0"
+        v-if="quizQuestions[current] && quizQuestions[current].question"
         @set-answer="setAnswer"
-        :full-question="questions[current].question"
-        :current-answers="questions[current].answers" />
+        :full-question="quizQuestions[current].question"
+        :current-answers="quizQuestions[current].answers" />
     </v-flex>
     <v-flex>
       <v-btn
@@ -31,13 +31,12 @@ export default {
   data() {
     return {
       current: 0,
-      questions: [],
-      quiz: {}
+      quizQuestions: []
     };
   },
   methods: {
     setAnswer(answerIndex, answerId) {
-      const newAnswers = this.questions[this.current].answers.slice();
+      const newAnswers = this.quizQuestions[this.current].answers.slice();
       newAnswers.forEach((id, index, array) => {
         if (id === answerId) {
           array[index] = null;
@@ -45,34 +44,31 @@ export default {
       });
       newAnswers[answerIndex] = answerId;
       // trigger update
-      this.questions[this.current].answers = newAnswers;
+      this.quizQuestions[this.current].answers = newAnswers;
     },
     fetchQuestion(id) {
       questionApi.getQuestion(id)
         .then(response => response.data)
         .then(question => {
-          let answers;
-          const qq = this.quiz.quizQuestions.find(qq => qq.questionId === id);
+          const qq = this.quizQuestions.find(qq => qq.questionId === id);
           if (qq.answers === null) {
             const noAnswers = (question.question.match(/\?\?\?/g) || []).length;
-            answers = new Array(noAnswers).fill(null);
-          } else {
-            answers = qq.answers;
+            qq.answers = new Array(noAnswers).fill(null);
           }
-          this.questions.push({question, answers});
+          qq.question = question;
+          this.$forceUpdate();
         });
     },
     sendAnswer(finalize) {
-      const current = this.questions[this.current];
-      const questionId = current.question.id;
-      return quizApi.answerQuestion(questionId, current.answers, finalize);
+      const current = this.quizQuestions[this.current];
+      return quizApi.answerQuestion(current.questionId, current.answers, finalize);
     },
     changeQuestion(step) {
       const nextPos = this.current + step;
-      if (nextPos >= 0 && nextPos < this.questions.length) {
+      if (nextPos >= 0 && nextPos < this.quizQuestions.length) {
         this.sendAnswer();
         this.current = nextPos;
-      } else if (nextPos === this.questions.length) {
+      } else if (nextPos === this.quizQuestions.length) {
         // TODO: alert user that this will end the quiz
         this.sendAnswer(true)
           .then(({data}) => console.log(data))
@@ -92,9 +88,9 @@ export default {
         }
       })
       .then(response => response.data)
-      .then(quiz => {
-        this.quiz = quiz;
-        const promises = quiz.quizQuestions.map(qq => {
+      .then(({quizQuestions}) => {
+        this.quizQuestions = quizQuestions;
+        const promises = quizQuestions.map(qq => {
           return this.fetchQuestion(qq.questionId);
         });
         return Promise.all(promises);
