@@ -2,16 +2,19 @@
   <v-app id="app">
     <navbar v-if="$route.name !== 'callback'" />
     <router-view></router-view>
+    <footer-component />
   </v-app>
 </template>
 
 <script>
 import navbar from './components/Navbar';
+import footerComponent from './components/Footer';
 
 export default {
   name: 'app',
   components: {
-    navbar
+    navbar,
+    footerComponent
   }
 };
 </script>
