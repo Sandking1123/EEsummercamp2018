@@ -73,7 +73,6 @@ export default {
       } else if (nextPos === this.quizQuestions.length) {
         // TODO: alert user that this will end the quiz
         this.sendAnswer(true)
-          .then(({data}) => console.log(data))
           // TODO: go to summary
           .then(() => this.$router.replace({name: 'history'}));
       } else if (nextPos === -1) {
