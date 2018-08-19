@@ -1,18 +1,10 @@
 <template>
-  <v-footer class="footer" fixed>
+  <v-footer class="footer" margin-top>
     <v-flex xs12>&copy; {{ new Date().getFullYear() }}
       <strong> - Test your Knowledge</strong>
     </v-flex>
   </v-footer>
 </template>
-
-<script>
-export default {
-  name: 'footercomponent',
-  data: () => ({
-  })
-};
-</script>
 
 <style scoped>
 .footer {

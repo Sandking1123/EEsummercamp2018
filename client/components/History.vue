@@ -22,7 +22,12 @@
       </v-flex>
     </v-layout>
     <br>
-    <summary-comp v-if="Clicked" :comeFromHistory="true" :quizId="idOfQuiz" :index="i"></summary-comp>
+    <summary-comp
+      v-if="clicked"
+      :comeFromHistory="true"
+      :quizId="idOfQuiz"
+      :index="i">
+    </summary-comp>
   </div>
 </template>
 
@@ -36,8 +41,7 @@ export default {
       nameOfQuiz: 'Quiz',
       quizHistory: '',
       idOfQuiz: '',
-      i: 0,
-      Clicked: false
+      clicked: false
     };
   },
   methods: {
@@ -47,7 +51,7 @@ export default {
     },
     getSummary(quiz) {
       this.idOfQuiz = quiz.id;
-      this.Clicked = true;
+      this.clicked = true;
     }
   },
   created: function getHistory() {

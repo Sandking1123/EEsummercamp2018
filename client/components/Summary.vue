@@ -3,28 +3,24 @@
     <v-layout>
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
-          <br>
-          <h2> Summary</h2>
-          <br>
-          <p>
-            {{ message }}
-            <br>
+          <div>
+            <h2 class ="summaryh2">Summary</h2>
+            <p>{{ message }}</p>
+          </div>
+          <div>
             Your score:
             {{ quizDetails.percentage }}/10
             ({{ quizDetails.percentage * 10 }}%)
-            <br>
-            Required: {{ requiredPerc*10 }}%
-          </p>
-          <p>
-            Time: {{ time }}
-          </p>
+          </div>
+          <p>Required: {{ requiredPerc*10 }}%</p>
+          <p>Time: {{ time }}</p>
           <div v-if="comeFromHistory">
             <v-card-actions>
               <v-btn @click="rewiewQuiz(quizDetails.id)" flat color="orange">Review</v-btn>
             </v-card-actions>
           </div>
           <div v-else>
-            You can rewiew your answers by clicking on questions progress bar.
+            You can review your answers by clicking on questions progress bar.
           </div>
         </v-card>
       </v-flex>
@@ -62,12 +58,13 @@ export default {
         });
     },
     getMessage() {
-      if (this.quizDetails.percentage < this.requiredPerc) {
+      const { timestamp, createdAt, percentage } = this.quizDetails;
+      if (percentage < this.requiredPerc) {
         this.message = 'Unfortunately you failed.';
       } else {
-        this.message = 'Congratulation you passed.';
+        this.message = 'Congratulations you passed.';
       }
-      const milisec = fnsDate.differenceInMilliseconds(this.quizDetails.timestamp, this.quizDetails.createdAt);
+      const milisec = fnsDate.differenceInMilliseconds(timestamp, createdAt);
       this.time = fnsDate.format(milisec, 'mm:ss');
     },
     rewiewQuiz(quizId) {
@@ -84,3 +81,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.summaryh2 {
+  margin: 0 0 10px 0;
+}
+</style>
