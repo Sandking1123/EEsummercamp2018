@@ -1,8 +1,10 @@
 <template>
   <div>
     <progress-bar
+      v-if="quizQuestions.length > 0"
       @choose="changeQuestion"
-      :current="current" />
+      :current="current"
+      :quiz-questions="quizQuestions" />
     <v-container align-center fill-height>
       <v-flex xs2>
         <v-btn
