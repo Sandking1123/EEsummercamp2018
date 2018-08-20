@@ -4,6 +4,7 @@ import Home from './components/Home.vue';
 import Callback from './components/Callback.vue';
 import HistoryComp from './components/History.vue';
 import QuizScreen from './components/QuizScreen';
+import ReviewScreen from './components/ReviewScreen';
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ const router = new Router({
       path: '/quiz',
       name: 'quiz',
       component: QuizScreen
+    },
+    {
+      path: '/review',
+      name: 'review',
+      component: ReviewScreen
     }
   ]
 });
