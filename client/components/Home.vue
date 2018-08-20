@@ -1,15 +1,17 @@
 <template>
-  <div class="home">
-    <v-app>
-      <navbar></navbar>
-    </v-app>
-    <footer-comp></footer-comp>
-  </div>
+  <v-container fill-height>
+    <v-flex xs4 offset-xs2>
+      <h1>Hello!</h1>
+    </v-flex>
+    <v-flex xs4 offset-xs1>
+      <h1>Leaderboard</h1>
+      <leaderboard />
+    </v-flex>
+  </v-container>
 </template>
 
 <script>
-import navbar from './Navbar';
-import footerComp from './Footer';
+import leaderboard from './Leaderboard';
 
 export default {
   name: 'home',
@@ -18,8 +20,7 @@ export default {
     };
   },
   components: {
-    navbar,
-    footerComp
+    leaderboard
   }
 };
 </script>
