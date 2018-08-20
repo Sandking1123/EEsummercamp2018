@@ -5,7 +5,7 @@ const sequelize = require('sequelize');
 function getLeaderboard(req, res) {
   Quiz.findAll({
     attributes: [
-      [sequelize.fn('sum', sequelize.col('percentage')), 'score']
+      [sequelize.literal('sum("percentage") * avg("percentage")'), 'score']
     ],
     group: ['userId', 'user.id'],
     order: [[sequelize.col('score'), 'desc']],
