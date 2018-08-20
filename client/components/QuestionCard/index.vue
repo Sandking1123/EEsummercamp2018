@@ -22,6 +22,7 @@
 <script>
 import Question from './Question.vue';
 import Answers from './Answers.vue';
+import _ from 'lodash';
 
 export default {
   name: 'question-card',
@@ -37,7 +38,8 @@ export default {
   computed: {
     markedAnswers() {
       return this.currentAnswers.map(id => {
-        return id !== null ? this.fullQuestion.answers[id].text : '???';
+        return id !== null
+          ? _.find(this.fullQuestion.answers, {id}).text : '???';
       });
     },
     selectedAnswer: {

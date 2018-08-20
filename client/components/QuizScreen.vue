@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import shuffle from 'shuffle-array';
 import questionCard from './QuestionCard';
 import { questionApi, quizApi } from '../api';
 
@@ -52,6 +53,7 @@ export default {
       questionApi.getQuestion(id)
         .then(response => response.data)
         .then(question => {
+          question.answers = shuffle(question.answers);
           const qq = this.quizQuestions.find(qq => qq.questionId === id);
           if (qq.answers === null) {
             const noAnswers = (question.question.match(/\?\?\?/g) || []).length;
