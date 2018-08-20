@@ -18,7 +18,8 @@
         <question-card
           v-if="quizQuestions[current] && quizQuestions[current].question"
           :full-question="quizQuestions[current].question"
-          :current-answers="quizQuestions[current].answers" />
+          :current-answers="quizQuestions[current].answers"
+          mode="review" />
       </v-flex>
       <v-flex xs2>
         <v-btn
