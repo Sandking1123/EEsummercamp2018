@@ -1,0 +1,46 @@
+<template>
+  <div class="mainmenu" xs-6>
+    <v-navigation-drawer permanent>
+      <v-list dense dark>
+        <v-list-tile
+          v-for="option in options"
+          :key="option.title"
+          @click="takeUs(option)">
+          <v-list-tile-action>
+            <v-icon color="orange darken-2">{{ option.icon }}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ option.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      options: [
+        { title: 'Home', icon: 'home', url: 'home' },
+        { title: 'Quiz', icon: 'chat', url: 'quiz' },
+        { title: 'History', icon: 'info', url: 'history' }
+      ],
+      chosenPath: ''
+    };
+  },
+  methods: {
+    takeUs(clickedItem) {
+      this.$router.replace({name: clickedItem.url});
+    }
+  }
+};
+</script>
+
+<style scoped>
+.mainmenu {
+  margin-left: 1.2%;
+  width: 25%;
+}
+</style>
