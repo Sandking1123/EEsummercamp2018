@@ -4,7 +4,8 @@
       v-if="quizQuestions.length > 0"
       @choose="changeQuestion"
       :current="current"
-      :quiz-questions="quizQuestions" />
+      :quiz-questions="quizQuestions"
+      mode="review" />
     <v-container align-center fill-height>
       <v-flex xs2>
         <v-btn
@@ -56,7 +57,9 @@ export default {
             qq.answers = new Array(noAnswers).fill(null);
           }
           qq.question = question;
-          this.$forceUpdate();
+          // force update
+          const newQQs = this.quizQuestions.slice();
+          this.quizQuestions = newQQs;
         });
     },
     changeQuestion({step, jump}) {
