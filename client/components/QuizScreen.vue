@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <progress-bar
       v-if="quizQuestions.length > 0"
       @choose="changeQuestion"
@@ -26,7 +26,7 @@
           color="orange">{{ forwardButtonText[current === 9 ? 1 : 0] }}</v-btn>
       </v-flex>
     </v-container>
-  </div>
+  </v-container>
 </template>
 
 <script>
