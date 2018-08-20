@@ -1,12 +1,12 @@
 <template>
   <v-toolbar class="toolbar" dark>
-    <v-btn @click="takeMeHome" large round><img src="../assets/logoTYK.png" width="50" height="50">
+    <v-btn @click="takeMeHome" class="navbarbtn" large round><img src="../assets/logoTYK.png" width="40" height="40">
       <v-toolbar-title class="toolbartitle">Test your Knowledge</v-toolbar-title>
     </v-btn>
     <v-spacer></v-spacer>
     <v-toolbar-items>
       <v-menu bottom offset-y>
-        <v-btn slot="activator">
+        <v-btn slot="activator" class="navbarbtn">
           <img class="img" :src="$auth.user.picture" width="35" height="35">
           &nbsp;{{ $auth.user.name }}
           <v-icon></v-icon>
@@ -41,5 +41,8 @@ export default {
 }
 .toolbartitle {
   text-transform: capitalize
+}
+.navbarbtn {
+  box-shadow: none !important;
 }
 </style>

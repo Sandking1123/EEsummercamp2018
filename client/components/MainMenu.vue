@@ -5,7 +5,7 @@
         <v-list-tile
           v-for="option in options"
           :key="option.title"
-          @click="takeUs(option)">
+          @click="navigateTo(option)">
           <v-list-tile-action>
             <v-icon color="orange darken-2">{{ option.icon }}</v-icon>
           </v-list-tile-action>
@@ -30,7 +30,7 @@ export default {
     };
   },
   methods: {
-    takeUs(clickedItem) {
+    navigateTo(clickedItem) {
       this.$router.push({name: clickedItem.url});
     }
   }
