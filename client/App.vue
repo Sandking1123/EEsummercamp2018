@@ -1,5 +1,5 @@
 <template>
-  <v-app id="app">
+  <v-app id="app" style="background:'./assets/BackgroundTYK.png' ">
     <navbar v-if="$route.name !== 'callback'" />
     <router-view></router-view>
     <footer-component />
