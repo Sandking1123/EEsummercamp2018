@@ -24,7 +24,8 @@ export default {
     return {
       options: [
         { title: 'Quiz', icon: 'chat', url: 'quiz' },
-        { title: 'History', icon: 'info', url: 'history' }
+        { title: 'History', icon: 'info', url: 'history' },
+        { title: 'Question by question', icon: 'gavel', url: 'learning' }
       ],
       chosenPath: ''
     };
