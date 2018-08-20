@@ -14,7 +14,7 @@
     <template slot-scope="props" slot="items">
       <td>{{ props.index + 1 }}.</td>
       <td>{{ props.item['user.name'] }}</td>
-      <td>{{ props.item.score }}</td>
+      <td>{{ props.item.score.toFixed(1) * 10 }}</td>
     </template>
   </v-data-table>
 </template>
