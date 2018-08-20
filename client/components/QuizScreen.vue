@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       current: 0,
+      quizId: null,
       quizQuestions: [],
       backwardButtonText: ['previous', 'quit'],
       forwardButtonText: ['next', 'finish']
@@ -88,8 +89,12 @@ export default {
       } else if (nextPos === this.quizQuestions.length) {
         // TODO: alert user that this will end the quiz
         this.sendAnswer(true)
-          // TODO: go to summary
-          .then(() => this.$router.replace({name: 'history'}));
+          .then(() => {
+            this.$router.replace({
+              name: 'review',
+              params: {quizId: this.quizId}
+            });
+          });
       } else if (nextPos === -1) {
         this.sendAnswer(true)
           .then(() => this.$router.replace({name: 'home'}));
@@ -107,7 +112,8 @@ export default {
         }
       })
       .then(response => response.data)
-      .then(({quizQuestions}) => {
+      .then(({id, quizQuestions}) => {
+        this.quizId = id;
         this.quizQuestions = quizQuestions;
         const promises = quizQuestions.map(qq => {
           return this.fetchQuestion(qq.questionId);
