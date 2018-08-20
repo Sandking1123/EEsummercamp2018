@@ -68,6 +68,9 @@ export default {
 </script>
 
 <style scoped>
+.history {
+  margin-bottom: 65px;
+}
 .quiz-list {
   border: 1px solid #90A4AE;
   border-radius: 8px;

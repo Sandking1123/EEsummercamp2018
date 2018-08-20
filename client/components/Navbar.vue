@@ -1,7 +1,8 @@
 <template>
   <v-toolbar class="toolbar" dark>
-    <img src="../assets/logoTYK.png" width="50" height="50">
-    <v-toolbar-title>Test your Knowledge</v-toolbar-title>
+    <v-btn @click="takeMeHome" round><img src="../assets/logoTYK.png" width="40" height="40">
+      <v-toolbar-title class="toolbartitle">Test your Knowledge</v-toolbar-title>
+    </v-btn>
     <v-spacer></v-spacer>
     <v-toolbar-items>
       <v-menu bottom offset-y>
@@ -22,7 +23,11 @@
 
 <script>
 export default {
-
+  methods: {
+    takeMeHome() {
+      this.$router.replace({name: 'home'});
+    }
+  }
 };
 </script>
 
@@ -33,5 +38,8 @@ export default {
 }
 .toolbar {
   margin: 0 0 16px !important;
+}
+.toolbartitle {
+  text-transform: capitalize
 }
 </style>

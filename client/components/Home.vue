@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height>
-    <v-flex xs4 offset-xs2>
-      <h1>Hello!</h1>
+    <v-flex>
+      <mainmenu></mainmenu>
     </v-flex>
     <v-flex xs4 offset-xs1>
       <h1>Leaderboard</h1>
@@ -12,6 +12,7 @@
 
 <script>
 import leaderboard from './Leaderboard';
+import mainmenu from './MainMenu';
 
 export default {
   name: 'home',
@@ -20,7 +21,8 @@ export default {
     };
   },
   components: {
-    leaderboard
+    leaderboard,
+    mainmenu
   }
 };
 </script>

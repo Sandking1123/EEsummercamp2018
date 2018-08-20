@@ -1,5 +1,5 @@
 <template>
-  <div class="mainmenu" xs-6>
+  <div class="mainmenu">
     <v-navigation-drawer permanent>
       <v-list dense dark>
         <v-list-tile
@@ -23,7 +23,6 @@ export default {
   data() {
     return {
       options: [
-        { title: 'Home', icon: 'home', url: 'home' },
         { title: 'Quiz', icon: 'chat', url: 'quiz' },
         { title: 'History', icon: 'info', url: 'history' }
       ],
@@ -41,6 +40,6 @@ export default {
 <style scoped>
 .mainmenu {
   margin-left: 1.2%;
-  width: 25%;
+  width: 45%;
 }
 </style>

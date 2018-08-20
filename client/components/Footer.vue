@@ -8,7 +8,9 @@
 
 <style scoped>
 .footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
   background-color: #ECEFF1;
-  margin-top: 65px
 }
 </style>
