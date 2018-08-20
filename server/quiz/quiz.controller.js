@@ -154,7 +154,7 @@ function finalizeQuiz(quizDetails) {
   });
 
   return quizDetails.update({
-    percentage: percentage * 10,
+    percentage,
     timestamp: Date.now()
   });
 }
