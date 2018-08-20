@@ -12,7 +12,7 @@
           flat
           color="orange">{{ backwardButtonText[current === 0 ? 1 : 0] }}</v-btn>
       </v-flex>
-      <v-flex xs8>
+      <v-flex xs8 class="quizscreen">
         <question-card
           v-if="quizQuestions[current] && quizQuestions[current].question"
           @set-answer="setAnswer"
@@ -122,3 +122,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.quizscreen {
+  margin-bottom: 60px;
+}
+</style>
