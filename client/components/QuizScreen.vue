@@ -1,24 +1,31 @@
 <template>
-  <v-container align-center fill-height>
-    <v-flex xs2>
-      <v-btn
-        @click="changeQuestion(-1)"
-        flat
-        color="orange">{{ backwardButtonText[current === 0 ? 1 : 0] }}</v-btn>
-    </v-flex>
-    <v-flex xs8>
-      <question-card
-        v-if="quizQuestions[current] && quizQuestions[current].question"
-        @set-answer="setAnswer"
-        :full-question="quizQuestions[current].question"
-        :current-answers="quizQuestions[current].answers" />
-    </v-flex>
-    <v-flex xs2>
-      <v-btn
-        @click="changeQuestion(1)"
-        flat
-        color="orange">{{ forwardButtonText[current === 9 ? 1 : 0] }}</v-btn>
-    </v-flex>
+  <v-container>
+    <progress-bar
+      v-if="quizQuestions.length > 0"
+      @choose="changeQuestion"
+      :current="current"
+      :quiz-questions="quizQuestions" />
+    <v-container align-center fill-height>
+      <v-flex xs2>
+        <v-btn
+          @click="changeQuestion({step:-1})"
+          flat
+          color="orange">{{ backwardButtonText[current === 0 ? 1 : 0] }}</v-btn>
+      </v-flex>
+      <v-flex xs8>
+        <question-card
+          v-if="quizQuestions[current] && quizQuestions[current].question"
+          @set-answer="setAnswer"
+          :full-question="quizQuestions[current].question"
+          :current-answers="quizQuestions[current].answers" />
+      </v-flex>
+      <v-flex xs2>
+        <v-btn
+          @click="changeQuestion({step:1})"
+          flat
+          color="orange">{{ forwardButtonText[current === 9 ? 1 : 0] }}</v-btn>
+      </v-flex>
+    </v-container>
   </v-container>
 </template>
 
@@ -26,6 +33,7 @@
 import shuffle from 'shuffle-array';
 import questionCard from './QuestionCard';
 import { questionApi, quizApi } from '../api';
+import progressBar from './ProgressBar';
 
 export default {
   name: 'quiz-screen',
@@ -67,8 +75,13 @@ export default {
       const current = this.quizQuestions[this.current];
       return quizApi.answerQuestion(current.questionId, current.answers, finalize);
     },
-    changeQuestion(step) {
-      const nextPos = this.current + step;
+    changeQuestion({step, jump}) {
+      let nextPos;
+      if (step !== undefined) {
+        nextPos = this.current + step;
+      } else if (jump !== undefined) {
+        nextPos = jump;
+      }
       if (nextPos >= 0 && nextPos < this.quizQuestions.length) {
         this.sendAnswer();
         this.current = nextPos;
@@ -104,7 +117,8 @@ export default {
     // TODO handle errors
   },
   components: {
-    questionCard
+    questionCard,
+    progressBar
   }
 };
 </script>

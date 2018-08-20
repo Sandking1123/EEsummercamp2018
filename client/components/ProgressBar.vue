@@ -1,28 +1,35 @@
 <template>
-  <div>
-    <v-progress-linear v-model="valueDeterminate"></v-progress-linear>
-    <v-btn-toggle v-model="toggleExclusive">
-      <v-btn id="q1" color="">Question 1</v-btn>
-      <v-btn id="q2" color="">Question 2</v-btn>
-      <v-btn id="q3" color="">Question 3</v-btn>
-      <v-btn id="q4" color="">Question 4</v-btn>
-      <v-btn id="q5" color="">Question 5</v-btn>
-      <v-btn id="q6" color="">Question 6</v-btn>
-      <v-btn id="q7" color="">Question 7</v-btn>
-      <v-btn id="q8" color="">Question 8</v-btn>
-      <v-btn id="q9" color="">Question 9</v-btn>
-      <v-btn id="q10" color="">Question 10</v-btn>
-    </v-btn-toggle>
-  </div>
+  <v-btn-toggle v-model="selected">
+    <v-btn
+      v-for="(qq, index) in quizQuestions"
+      :key="qq.questionId"
+      @click="chooseQuestion(index)"
+      :color="answered[index] ? 'orange' : ''">Question {{ index + 1 }}</v-btn>
+  </v-btn-toggle>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      valueDeterminate: 50,
-      toggleExclusive: 2
-    };
+  props: {
+    current: { type: Number, required: true },
+    quizQuestions: {type: Array, required: true}
+  },
+  computed: {
+    selected: {
+      get: function () { return this.current; },
+      set: function () {}
+    },
+    answered() {
+      return this.quizQuestions.map(qq => {
+        return qq.answers && qq.answers.every(answer => answer !== null);
+      });
+    }
+  },
+  methods: {
+    chooseQuestion(jump) {
+      this.$emit('choose', {jump});
+    }
   }
+
 };
 </script>
