@@ -76,7 +76,7 @@ export default {
     }
   },
   created: function getQuiz() {
-    quizApi.getQuizDetails(9)
+    quizApi.getQuizDetails(this.$route.params.quizId)
       .then(response => response.data)
       .then(({quizQuestions}) => {
         this.quizQuestions = quizQuestions;

@@ -68,7 +68,7 @@ export default {
       this.time = fnsDate.format(milisec, 'mm:ss');
     },
     rewiewQuiz(quizId) {
-      // switch to component for retaking quiz
+      this.$router.push({ name: 'review', params: {quizId} });
     }
   },
   created() {
