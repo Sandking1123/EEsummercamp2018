@@ -1,6 +1,6 @@
 <template>
   <v-toolbar class="toolbar" dark>
-    <v-btn @click="takeMeHome" round><img src="../assets/logoTYK.png" width="40" height="40">
+    <v-btn @click="takeMeHome" large round><img src="../assets/logoTYK.png" width="50" height="50">
       <v-toolbar-title class="toolbartitle">Test your Knowledge</v-toolbar-title>
     </v-btn>
     <v-spacer></v-spacer>

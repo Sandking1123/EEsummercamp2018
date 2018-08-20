@@ -1,5 +1,5 @@
 <template>
-  <div class="mainmenu">
+  <v-flex>
     <v-navigation-drawer permanent>
       <v-list dense dark>
         <v-list-tile
@@ -15,7 +15,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-  </div>
+  </v-flex>
 </template>
 
 <script>
@@ -31,15 +31,8 @@ export default {
   },
   methods: {
     takeUs(clickedItem) {
-      this.$router.replace({name: clickedItem.url});
+      this.$router.push({name: clickedItem.url});
     }
   }
 };
 </script>
-
-<style scoped>
-.mainmenu {
-  margin-left: 1.2%;
-  width: 45%;
-}
-</style>
