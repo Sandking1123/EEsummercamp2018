@@ -28,7 +28,7 @@ const router = new Router({
       component: HistoryComp
     },
     {
-      path: '/quiz',
+      path: '/quiz/:topic',
       name: 'quiz',
       component: QuizScreen
     },
