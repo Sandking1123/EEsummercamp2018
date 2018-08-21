@@ -25,7 +25,7 @@ function retrieveQuizInstance({user}, res) {
 
 function startQuizInstance({user, params}, res) {
   const userId = user.id;
-  const topic = params.topic;
+  const { topic } = params;
   findQuizInstance(userId)
     // found instance, let the user decide what to do
     .then(quizInstance => res.status(302).json(quizInstance))
@@ -132,8 +132,7 @@ async function findQuizInstance(userId) {
 
 async function createQuizInstance(userId, topic) {
   const db = require('../database');
-  const where = topic !== undefined ? {topic} : {};
-
+  const where = topic !== 'regular' ? {topic} : {};
   const questionIds = await Question.findAll({
     where,
     raw: true,

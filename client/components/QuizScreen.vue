@@ -97,7 +97,7 @@ export default {
     }
   },
   created: function startQuiz() {
-    quizApi.createInstance()
+    quizApi.createInstance(this.$route.params.topic)
       .catch(error => {
         if (error.response && error.response.status === 302) {
           // TODO prompt user to choose what to to

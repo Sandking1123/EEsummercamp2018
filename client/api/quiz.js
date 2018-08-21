@@ -12,8 +12,8 @@ function getInstance() {
   return request.get('/quizzes/instance');
 }
 
-function createInstance() {
-  return request.post('/quizzes/instance');
+function createInstance(topic = 'regular') {
+  return request.post(`/quizzes/instance/${topic}`);
 }
 
 function answerQuestion(questionId, answers, finalize) {

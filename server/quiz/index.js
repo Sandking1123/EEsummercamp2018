@@ -5,7 +5,6 @@ const controller = require('./quiz.controller');
 router.put('/quizzes/instance/question/:id', controller.answerQuestion);
 // start/resume quiz
 router.get('/quizzes/instance', controller.retrieveQuizInstance);
-router.post('/quizzes/instance', controller.startQuizInstance);
 router.post('/quizzes/instance/:topic', controller.startQuizInstance);
 // review
 router.get('/quizzes/:id', controller.getQuizDetails);
