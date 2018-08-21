@@ -25,7 +25,7 @@ export default {
           src: require('../assets/picture1.png'),
           title: 'Learn all about git, javascript, sql and more! ' },
         { src: require('../assets/picture2.png'),
-          title: 'Or you can test your knowledge with our quizzes... Good luck!' }
+          title: 'Or... Test your knowledge with our quiz!' }
       ]
     };
   }
