@@ -55,9 +55,7 @@ export default {
   },
   created: function getHistory() {
     quizApi.getHistory()
-      .then((response) => {
-        return response.data;
-      })
+      .then(({data}) => data.filter(h => h.timestamp))
       .then((history) => (this.quizHistory = history))
       .catch((err) => console.log(err));
   },
