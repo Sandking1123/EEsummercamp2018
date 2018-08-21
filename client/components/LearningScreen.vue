@@ -20,22 +20,19 @@
       </v-flex>
       <v-flex xs9>
         <v-layout row wrap>
-          <v-flex xs7>
+          <v-flex xs3 offset-xs2>
             <v-btn @click="decrement" color="orange">Prev</v-btn>
-            {{ current }}/{{ choosenQuestions.length }}
-            <v-btn @click="increment" color="orange">Next</v-btn>
-          </v-flex>
-          <v-flex xs3>
-            <v-text-field v-model="indexText" label= "#No question" hint="2/757" clearable>
-            </v-text-field>
           </v-flex>
           <v-flex xs1>
-            <v-btn @click="getIndex()" color="orange">Get </v-btn>
+            <v-text-field v-model="current" type="number" hint="2/757" />
+          </v-flex>
+          <v-flex xs3>
+            <v-btn @click="increment" color="orange">Next</v-btn>
           </v-flex>
         </v-layout>
         <question-card
           v-if="choosenQuestions.length > 0"
-          :full-question="choosenQuestions[current - 1]"
+          :full-question="choosenQuestions[current]"
           :current-answers="answers"
           mode="learn" />
       </v-flex>
@@ -53,8 +50,7 @@ export default {
     return {
       allTopics: [],
       choosenQuestions: [],
-      current: 1,
-      indexText: 1
+      current: 0
     };
   },
   computed: {
@@ -68,8 +64,7 @@ export default {
   },
   methods: {
     chooseTopic(selectedTopic) {
-      this.current = 1;
-      this.textField = this.current + '/' + this.choosenQuestions.length;
+      this.current = 0;
       topicApi.getQuestionsOfSpecificTopic(selectedTopic)
         .then(response => response.data)
         .then(questions => (this.choosenQuestions = questions));
@@ -87,14 +82,15 @@ export default {
       }
     },
     decrement() {
-      if (this.current !== 1) {
+      if (this.current > 0) {
         this.current--;
       }
     }
   },
   created: function listTopics() {
     topicApi.getTopics()
-      .then(({data}) => (this.allTopics = data));
+      .then(({data}) => (this.allTopics = data))
+      .then(() => this.chooseTopic(this.allTopics[0].topic));
   },
   components: {
     QuestionCard
