@@ -22,9 +22,9 @@ export default {
     return {
       slides: [
         {
-          src: require('../assets/pictureLogos.png'),
+          src: require('../assets/slide-logo.png'),
           title: 'LEARN ALL ABOUT:' },
-        { src: require('../assets/pictureExample.png'),
+        { src: require('../assets/slide-example.png'),
           title: 'TEST YOUR KNOWLEDGE WITH OUR QUIZ' }
       ]
     };
@@ -37,7 +37,7 @@ export default {
   margin-top: 19px;
 }
 .title {
-  color: orangered;
+  color: orange;
   text-align: center;
   font-size: 30px !important;
 }
