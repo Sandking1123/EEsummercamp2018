@@ -8,7 +8,8 @@
             <v-list-tile
               v-for="item in allTopics"
               :key="item.topic"
-              @click="chooseTopic(item.topic)">
+              @click="chooseTopic(item.topic)"
+              :disabled="item.topic === currentTopic">
               <v-list-tile-content>
                 <v-list-tile-title class="topic">
                   {{ item.topic }}
@@ -50,7 +51,8 @@ export default {
     return {
       allTopics: [],
       choosenQuestions: [],
-      current: 0
+      current: 0,
+      currentTopic: ''
     };
   },
   computed: {
@@ -79,6 +81,7 @@ export default {
   methods: {
     chooseTopic(selectedTopic) {
       this.current = 0;
+      this.currentTopic = selectedTopic;
       topicApi.getQuestionsOfSpecificTopic(selectedTopic)
         .then(response => response.data)
         .then(questions => (this.choosenQuestions = questions));
