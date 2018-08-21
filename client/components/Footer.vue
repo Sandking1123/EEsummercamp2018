@@ -1,7 +1,7 @@
 <template>
   <v-footer class="footer">
     <v-flex xs12>&copy; {{ new Date().getFullYear() }}
-      <strong> - Test your Knowledge</strong>
+      <strong> - Test Your Knowledge</strong>
     </v-flex>
   </v-footer>
 </template>
