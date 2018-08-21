@@ -47,7 +47,7 @@ export default {
         { title: 'Quiz', icon: 'chat', url: 'quiz', params: {topic: 'regular'} },
         { title: 'Git', url: 'quiz', params: {topic: 'git'} },
         { title: 'History', icon: 'event', url: 'history' },
-        { title: 'Learning', icon: 'info', url: '' }
+        { title: 'Question by question', icon: 'info', url: 'learning' }
       ],
       chosenPath: ''
     };

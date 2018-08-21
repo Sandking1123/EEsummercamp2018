@@ -11,16 +11,6 @@ const Question = database.define('question', {
   answers: Sequelize.ARRAY(Sequelize.JSONB)
 });
 
-Question.prototype.format = function formatQuestion() {
-  const question = this.dataValues;
-  question.answers = question.answers.map((answer, index) => {
-    answer.id = index;
-    return answer;
-  });
-
-  return question;
-};
-
 Question.prototype.correctAnswers = function getCorrectAnswers() {
   const correct = [];
   this.answers.forEach(answer => {
