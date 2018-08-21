@@ -3,7 +3,8 @@
     :items="entries"
     :headers="[{name: 'Rank'}, {name: 'Name'}, {name:'Score'}]"
     class="elevation-1"
-    hide-actions>
+    hide-actions
+    dark>
     <template slot-scope="props" slot="headers">
       <th
         v-for="header in props.headers"
