@@ -75,13 +75,14 @@ export default {
         .then(questions => (this.choosenQuestions = questions));
     },
     getIndex() {
-      if (this.choosenQuestions.length !== 0 && this.indexText <= this.choosenQuestions.length) {
-        console.log('moze');
+      const qLength = this.choosenQuestions.length;
+      const inputV = this.indexText;
+      if (qLength !== 0 && inputV <= qLength && inputV !== 0) {
         this.current = this.indexText;
       }
     },
     increment() {
-      if (this.current <= this.choosenQuestions.length) {
+      if (this.current < this.choosenQuestions.length) {
         this.current++;
       }
     },
