@@ -19,9 +19,23 @@
         </v-card>
       </v-flex>
       <v-flex xs9>
+        <v-layout row wrap>
+          <v-flex xs7>
+            <v-btn @click="decrement">Prev</v-btn>
+            {{ current }}/{{ choosenQuestions.length }}
+            <v-btn @click="increment">Next</v-btn>
+          </v-flex>
+          <v-flex xs3>
+            <v-text-field v-model="indexText" label= "#No question" hint="2/757" clearable>
+            </v-text-field>
+          </v-flex>
+          <v-flex xs1>
+            <v-btn @click="getIndex()">Get </v-btn>
+          </v-flex>
+        </v-layout>
         <question-card
           v-if="choosenQuestions.length > 0"
-          :full-question="choosenQuestions[current]"
+          :full-question="choosenQuestions[current - 1]"
           :current-answers="answers"
           mode="learn" />
       </v-flex>
@@ -30,7 +44,6 @@
 </template>
 
 <script>
-// v-for="item in choosenQuestions" :key="item"
 import { topicApi } from '../api';
 import QuestionCard from './QuestionCard';
 import _ from 'lodash';
@@ -40,7 +53,8 @@ export default {
     return {
       allTopics: [],
       choosenQuestions: [],
-      current: 0
+      current: 1,
+      indexText: 1
     };
   },
   computed: {
@@ -54,9 +68,27 @@ export default {
   },
   methods: {
     chooseTopic(selectedTopic) {
+      this.current = 1;
+      this.textField = this.current + '/' + this.choosenQuestions.length;
       topicApi.getQuestionsOfSpecificTopic(selectedTopic)
         .then(response => response.data)
         .then(questions => (this.choosenQuestions = questions));
+    },
+    getIndex() {
+      if (this.choosenQuestions.length !== 0 && this.indexText <= this.choosenQuestions.length) {
+        console.log('moze');
+        this.current = this.indexText;
+      }
+    },
+    increment() {
+      if (this.current <= this.choosenQuestions.length) {
+        this.current++;
+      }
+    },
+    decrement() {
+      if (this.current !== 1) {
+        this.current--;
+      }
     }
   },
   created: function listTopics() {
