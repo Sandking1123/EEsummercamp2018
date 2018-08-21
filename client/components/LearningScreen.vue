@@ -8,7 +8,7 @@
             <v-list-tile
               v-for="item in allTopics"
               :key="item.topic"
-              @click="ChooseTopic(item.topic)">
+              @click="chooseTopic(item.topic)">
               <v-list-tile-content>
                 <v-list-tile-title class="topic">
                   {{ item.topic }}
@@ -19,12 +19,11 @@
         </v-card>
       </v-flex>
       <v-flex xs9>
-        <v-card v-if="Show === true">
-          <!-- <question-card
-            :full-question="choosenQuestions[1].questions"
-            :current-answers="choosenQuestions[1].answers"
-            mode="learn" /> -->
-        </v-card>
+        <question-card
+          v-if="choosenQuestions.length > 0"
+          :full-question="choosenQuestions[current]"
+          :current-answers="answers"
+          mode="learn" />
       </v-flex>
     </v-layout>
   </v-container>
@@ -34,39 +33,35 @@
 // v-for="item in choosenQuestions" :key="item"
 import { topicApi } from '../api';
 import QuestionCard from './QuestionCard';
+import _ from 'lodash';
+
 export default {
   data() {
     return {
-      allTopics: '',
-      choosenQuestions: '',
-      Show: false
+      allTopics: [],
+      choosenQuestions: [],
+      current: 0
     };
   },
+  computed: {
+    answers() {
+      const answers = this.choosenQuestions[this.current].answers;
+      return _.map(
+        _.sortBy(_.filter(answers, a => a.correct), 'id'),
+        a => a.id
+      );
+    }
+  },
   methods: {
-    ChooseTopic(selectedTopic) {
-      console.log(selectedTopic);
+    chooseTopic(selectedTopic) {
       topicApi.getQuestionsOfSpecificTopic(selectedTopic)
-        .then((response) => {
-          return response.data;
-        })
-        .then((questions) => {
-          this.choosenQuestions = questions;
-          this.Show = true;
-          return this.choosenQuestions;
-        });
+        .then(response => response.data)
+        .then(questions => (this.choosenQuestions = questions));
     }
   },
   created: function listTopics() {
     topicApi.getTopics()
-      .then((response) => {
-        return response.data;
-      })
-      .then((topics) => (this.allTopics = topics));
-  },
-  watch: {
-    choosenObjects: {
-
-    }
+      .then(({data}) => (this.allTopics = data));
   },
   components: {
     QuestionCard
