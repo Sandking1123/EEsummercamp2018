@@ -22,7 +22,7 @@ export default {
     return {
       slides: [
         {
-          src: require('../assets/slide-logo.png'),
+          src: require('../assets/logos.png'),
           title: 'LEARN ALL ABOUT:' },
         { src: require('../assets/slide-example.png'),
           title: 'TEST YOUR KNOWLEDGE WITH OUR QUIZ' }
