@@ -130,18 +130,19 @@ async function findQuizInstance(userId) {
 }
 
 async function createQuizInstance(userId) {
-  const randomInt = require('random-int');
-  const count = await Question.count();
-  const questions = [];
-  while (questions.length < 10) {
-    let id;
-    while (questions.includes(id = randomInt(1, count))) {}
-    questions.push(id);
-  }
+  const sequelize = require('sequelize');
+  const questionIds = await Question.findAll({
+    raw: true,
+    attributes: ['id'],
+    limit: 10,
+    order: [
+      [sequelize.fn('RANDOM')]
+    ]
+  });
 
   return Quiz.create({
     userId,
-    quizQuestions: questions.map(questionId => ({questionId}))
+    quizQuestions: questionIds.map(o => ({questionId: o.id}))
   }, {
     include: [Quiz.Questions]
   });
