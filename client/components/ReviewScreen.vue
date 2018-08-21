@@ -6,28 +6,23 @@
       :current="current"
       :quiz-questions="quizQuestions"
       mode="review" />
-    <v-container align-center fill-height>
-      <v-flex xs2>
-        <v-btn
-          @click="changeQuestion({step:-1})"
-          :disabled="current === 0"
-          flat
-          color="orange">Previous</v-btn>
-      </v-flex>
-      <v-flex xs8>
-        <question-card
-          v-if="quizQuestions[current] && quizQuestions[current].question"
-          :full-question="quizQuestions[current].question"
-          :current-answers="quizQuestions[current].answers"
-          mode="review" />
-      </v-flex>
-      <v-flex xs2>
-        <v-btn
-          @click="changeQuestion({step:1})"
-          :disabled="current + 1 === quizQuestions.length"
-          flat
-          color="orange">Next</v-btn>
-      </v-flex>
+    <v-container align-space-around justify-space-between>
+      <v-btn
+        @click="changeQuestion({step:-1})"
+        :disabled="current === 0"
+        color="orange"
+        align-center>Previous</v-btn>
+      <v-btn
+        @click="changeQuestion({step:1})"
+        :disabled="current + 1 === quizQuestions.length"
+        color="orange"
+        align-center>Next</v-btn>
+      <question-card
+        v-if="quizQuestions[current] && quizQuestions[current].question"
+        :full-question="quizQuestions[current].question"
+        :current-answers="quizQuestions[current].answers"
+        mode="review" />
+
     </v-container>
   </v-container>
 </template>
