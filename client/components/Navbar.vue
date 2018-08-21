@@ -39,25 +39,41 @@
 </template>
 
 <script>
+import { topicApi } from '../api';
+import _ from 'lodash';
+
 export default {
   data() {
     return {
       options: [
         { title: 'Home', icon: 'home', url: 'home' },
-        { title: 'Quiz', icon: 'chat', url: 'quiz' },
+        { title: 'Quiz', icon: 'chat', url: 'quiz', params: {topic: 'regular'} },
         { title: 'History', icon: 'event', url: 'history' },
-        { title: 'Question by question', icon: 'info', url: 'learning' }
-      ],
-      chosenPath: ''
+        { title: 'Learning', icon: 'info', url: 'learning' }
+      ]
     };
   },
   methods: {
     goToHome() {
       this.$router.replace({name: 'home'});
     },
-    navigateTo(clickedItem) {
-      this.$router.push({name: clickedItem.url});
+    navigateTo(option) {
+      this.$router.push({name: option.url, params: option.params});
     }
+  },
+  created: function getTopics() {
+    topicApi.getTopics()
+      .then(({data}) => {
+        const additionalOptions = _.map(data, t => {
+          return {
+            title: t.topic,
+            url: 'quiz',
+            params: { topic: t.topic }
+          };
+        });
+        const index = _.findIndex(this.options, o => o.url === 'quiz');
+        this.options.splice(index + 1, 0, ...additionalOptions);
+      });
   }
 };
 </script>

@@ -26,17 +26,18 @@ function retrieveQuizInstance({user}, res) {
     .catch((err) => res.status(404).send(err.message));
 }
 
-function startQuizInstance({user}, res) {
+function startQuizInstance({user, params}, res) {
   const userId = user.id;
+  const { topic } = params;
   findQuizInstance(userId)
     // found instance, let the user decide what to do
     .then(quizInstance => res.status(302).json(quizInstance))
     // create new instance
     .catch(() => {
-      createQuizInstance(userId)
+      createQuizInstance(userId, topic)
         .then(({id}) => findQuizDetails(id, userId))
         .then(quizDetails => res.status(201).json(quizDetails))
-        .catch((err) => res.status(401).json(err));
+        .catch(err => res.status(404).send(err.message));
     });
 }
 
@@ -91,6 +92,14 @@ function answerQuestion({user, params, body}, res) {
     .catch((err) => res.status(404).send(err.message));
 }
 
+function endQuizInstance({user}, res) {
+  const userId = user.id;
+  findQuizInstance(userId)
+    .then(({id, userId}) => findQuizDetails(id, userId))
+    .then(async quizDetails => res.json(await finalizeQuiz(quizDetails)))
+    .catch(err => res.status(404).send(err.message));
+}
+
 /*
  *  Helper functions
  */
@@ -132,19 +141,29 @@ async function findQuizInstance(userId) {
   }
 }
 
-async function createQuizInstance(userId) {
-  const randomInt = require('random-int');
-  const count = await Question.count();
-  const questions = [];
-  while (questions.length < 10) {
-    let id;
-    while (questions.includes(id = randomInt(1, count))) {}
-    questions.push(id);
+async function createQuizInstance(userId, topic) {
+  const db = require('../database');
+  const where = topic !== 'regular' ? {topic} : {};
+  const questionIds = await Question.findAll({
+    where,
+    raw: true,
+    attributes: ['id'],
+    limit: 10,
+    order: [
+      [db.fn('RANDOM')]
+    ]
+  });
+
+  if (questionIds.length !== 10) {
+    return Promise.reject(new Error(
+      `Couldn't create quiz, there is no 10 questions of topic ${topic}`
+    ));
   }
 
   return Quiz.create({
     userId,
-    quizQuestions: questions.map(questionId => ({questionId}))
+    topic,
+    quizQuestions: questionIds.map(o => ({questionId: o.id}))
   }, {
     include: [Quiz.Questions]
   });
@@ -167,5 +186,6 @@ module.exports = {
   getQuizDetails,
   retrieveQuizInstance,
   startQuizInstance,
-  answerQuestion
+  answerQuestion,
+  endQuizInstance
 };
