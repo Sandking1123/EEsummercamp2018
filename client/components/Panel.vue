@@ -22,9 +22,9 @@ export default {
     return {
       slides: [
         { // zabi slike u assets i ode promini src i molin te popravi stilove
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          src: '../assets/Logo-git,sql,js,web.png',
           title: 'Learn all about git, javascript, sql and more! ' },
-        { src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+        { src: '../assets/QuestionExample.png',
           title: 'Or you can test your knowledge with our quizzes... Good luck!' }
       ]
     };
