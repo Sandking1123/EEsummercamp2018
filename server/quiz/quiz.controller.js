@@ -3,7 +3,10 @@ const Question = require('../question/question.model');
 
 function getQuizzes({user}, res) {
   const userId = user.id;
-  Quiz.findAll({where: {userId}, raw: true})
+  Quiz.findAll({
+    where: {userId},
+    order: [['timestamp', 'DESC']],
+    raw: true})
     .then((quizzes) => res.json(quizzes))
     .catch((err) => res.status(404).send(err.message));
 }
