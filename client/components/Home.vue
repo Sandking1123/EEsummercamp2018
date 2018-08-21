@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row wrap>
-      <v-flex xs8>
+      <v-flex>
         <panel />
       </v-flex>
       <v-flex xs4>

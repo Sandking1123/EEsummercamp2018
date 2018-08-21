@@ -1,12 +1,12 @@
 <template>
   <v-container>
-    <v-carousel style="cursor: pointer;">
+    <v-carousel class="panel">
       <v-carousel-item v-for="(slide, i) in slides" :key="i" :src="slide.src">
         <v-jumbotron dark>
           <v-container fill-height>
             <v-layout align-top>
               <v-flex>
-                <h1 class="title">{{ slide.title }}</h1>
+                <p class="title">{{ slide.title }}</p>
               </v-flex>
             </v-layout>
           </v-container>
@@ -21,10 +21,10 @@ export default {
   data() {
     return {
       slides: [
-        { // zabi slike u assets i ode promini src i molin te popravi stilove
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+        {
+          src: require('../assets/picture1.png'),
           title: 'Learn all about git, javascript, sql and more! ' },
-        { src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+        { src: require('../assets/picture2.png'),
           title: 'Or you can test your knowledge with our quizzes... Good luck!' }
       ]
     };
@@ -33,7 +33,12 @@ export default {
 </script>
 
 <style scoped>
+.panel {
+  margin-top: 19px;
+}
 .title {
-
+  color: orange;
+  text-align: center;
+  font-size: 20px!important;
 }
 </style>

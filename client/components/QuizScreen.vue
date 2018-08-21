@@ -1,10 +1,12 @@
 <template>
   <v-container>
-    <progress-bar
-      v-if="quizQuestions.length > 0"
-      @choose="changeQuestion"
-      :current="current"
-      :quiz-questions="quizQuestions" />
+    <v-flex xs-12>
+      <progress-bar
+        v-if="quizQuestions.length > 0"
+        @choose="changeQuestion"
+        :current="current"
+        :quiz-questions="quizQuestions" />
+    </v-flex>
     <v-container align-space-around justify-space-between>
       <v-btn
         @click="changeQuestion({step:-1})"
