@@ -23,17 +23,18 @@ function retrieveQuizInstance({user}, res) {
     .catch((err) => res.status(404).send(err.message));
 }
 
-function startQuizInstance({user}, res) {
+function startQuizInstance({user, params}, res) {
   const userId = user.id;
+  const topic = params.topic;
   findQuizInstance(userId)
     // found instance, let the user decide what to do
     .then(quizInstance => res.status(302).json(quizInstance))
     // create new instance
     .catch(() => {
-      createQuizInstance(userId)
+      createQuizInstance(userId, topic)
         .then(({id}) => findQuizDetails(id, userId))
         .then(quizDetails => res.status(201).json(quizDetails))
-        .catch((err) => res.status(401).json(err));
+        .catch(err => res.status(404).send(err.message));
     });
 }
 
@@ -129,16 +130,25 @@ async function findQuizInstance(userId) {
   }
 }
 
-async function createQuizInstance(userId) {
-  const sequelize = require('sequelize');
+async function createQuizInstance(userId, topic) {
+  const db = require('../database');
+  const where = topic !== undefined ? {topic} : {};
+
   const questionIds = await Question.findAll({
+    where,
     raw: true,
     attributes: ['id'],
     limit: 10,
     order: [
-      [sequelize.fn('RANDOM')]
+      [db.fn('RANDOM')]
     ]
   });
+
+  if (questionIds.length !== 10) {
+    return Promise.reject(new Error(
+      `Couldn't create quiz, there is no 10 questions of topic ${topic}`
+    ));
+  }
 
   return Quiz.create({
     userId,
