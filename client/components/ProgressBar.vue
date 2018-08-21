@@ -4,24 +4,48 @@
       v-for="(qq, index) in quizQuestions"
       :key="qq.questionId"
       @click="chooseQuestion(index)"
-      :color="answered[index] ? 'orange' : ''">Question {{ index + 1 }}</v-btn>
+      :color="color[index]">Question {{ index + 1 }}</v-btn>
   </v-btn-toggle>
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
+  name: 'progress-bar',
   props: {
+    mode: {type: String, default: 'quiz'},
     current: { type: Number, required: true },
     quizQuestions: {type: Array, required: true}
+  },
+  data() {
+    return {
+      colorAnswerd: 'orange',
+      colorCorrect: 'light-green',
+      colorWrong: 'red'
+    };
   },
   computed: {
     selected: {
       get: function () { return this.current; },
       set: function () {}
     },
-    answered() {
+    color() {
       return this.quizQuestions.map(qq => {
-        return qq.answers && qq.answers.every(answer => answer !== null);
+        let color;
+        if (!qq.answers || !qq.question) {
+          color = '';
+        } else if (this.mode === 'review') {
+          const correct = qq.answers.every((answer, index) => {
+            const corr = _.find(qq.question.answers, {correctIndex: index});
+            return answer === corr.id;
+          });
+          color = correct ? this.colorCorrect : this.colorWrong;
+        } else if (this.mode === 'quiz') {
+          const answered = qq.answers.every(answer => answer !== null);
+          color = answered ? this.colorAnswerd : '';
+        }
+        return color;
       });
     }
   },
@@ -30,6 +54,5 @@ export default {
       this.$emit('choose', {jump});
     }
   }
-
 };
 </script>

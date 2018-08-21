@@ -5,15 +5,27 @@
         <v-card-media>
           <question
             @select="selectAnswer"
-            :question="fullQuestion.question"
+            :full-question="fullQuestion"
             :marked-answers="markedAnswers"
-            :selected-answer="selectedAnswer" />
+            :selected-answer="selectedAnswer"
+            :display-options="displayOptions" />
         </v-card-media>
-        <v-card-text>
+        <v-card-text v-if="mode === 'quiz'">
           <answers
             @set-answer="setAnswer"
-            :answers="fullQuestion.answers" />
+            :answers="fullQuestion.answers"
+            :mode="mode" />
         </v-card-text>
+        <v-card-actions v-if="mode ==='review'">
+          <v-flex>
+            <v-btn
+              @click="displayOptions.marked = !displayOptions.marked"
+              flat
+              color="orange">
+              {{ displayOptions.marked ? 'My answers' : 'Correct Answers' }}
+            </v-btn>
+          </v-flex>
+        </v-card-actions>
       </v-card>
     </v-flex>
   </v-layout>
@@ -27,11 +39,13 @@ import _ from 'lodash';
 export default {
   name: 'question-card',
   props: {
+    mode: {type: String, default: 'quiz'},
     fullQuestion: {type: Object, required: true},
     currentAnswers: {type: Array, required: true}
   },
   data() {
     return {
+      displayOptions: {marked: true, mode: this.mode},
       prevSelectedAnswer: 0
     };
   },
@@ -45,7 +59,9 @@ export default {
     selectedAnswer: {
       get: function () {
         let selected = 0;
-        if (this.prevSelectedAnswer < this.currentAnswers.length) {
+        if (this.mode !== 'quiz') {
+          selected = -1;
+        } else if (this.prevSelectedAnswer < this.currentAnswers.length) {
           selected = this.prevSelectedAnswer;
         }
         return selected;

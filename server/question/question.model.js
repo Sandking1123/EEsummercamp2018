@@ -11,15 +11,11 @@ const Question = database.define('question', {
   answers: Sequelize.ARRAY(Sequelize.JSONB)
 });
 
-Question.prototype.filter = function filterQuestion() {
+Question.prototype.format = function formatQuestion() {
   const question = this.dataValues;
-
-  // remove the correct/correctIndex from the returned answer
   question.answers = question.answers.map((answer, index) => {
-    return {
-      text: answer.text,
-      id: index
-    };
+    answer.id = index;
+    return answer;
   });
 
   return question;
