@@ -24,7 +24,7 @@
             <v-btn @click="decrement" color="orange">Prev</v-btn>
           </v-flex>
           <v-flex xs1>
-            <v-text-field v-model="current" type="number" hint="2/757" />
+            <v-text-field v-model="displayedNumber" type="number" :hint="hint" />
           </v-flex>
           <v-flex xs3>
             <v-btn @click="increment" color="orange">Next</v-btn>
@@ -60,6 +60,20 @@ export default {
         _.sortBy(_.filter(answers, a => a.correct), 'id'),
         a => a.id
       );
+    },
+    hint() {
+      return `1 - ${this.choosenQuestions.length}`;
+    },
+    displayedNumber: {
+      get: function () {
+        return this.current + 1;
+      },
+      set: function (val) {
+        const next = val - 1;
+        if (next >= 0 && next < this.choosenQuestions.length) {
+          this.current = next;
+        }
+      }
     }
   },
   methods: {
@@ -77,14 +91,10 @@ export default {
       }
     },
     increment() {
-      if (this.current < this.choosenQuestions.length) {
-        this.current++;
-      }
+      this.displayedNumber++;
     },
     decrement() {
-      if (this.current > 0) {
-        this.current--;
-      }
+      this.displayedNumber--;
     }
   },
   created: function listTopics() {
