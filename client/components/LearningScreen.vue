@@ -19,8 +19,11 @@
         </v-card>
       </v-flex>
       <v-flex xs9>
-        <v-card>
-          <v-card-text>Add question card here</v-card-text>
+        <v-card v-for="item in choosenQuestions" :key="item">
+          <question-card
+            :full-question="item.question"
+            :current-answers="item.answers"
+            mode="learn" />
         </v-card>
       </v-flex>
     </v-layout>
@@ -29,11 +32,12 @@
 
 <script>
 import { topicApi } from '../api';
+import QuestionCard from './QuestionCard';
 export default {
   data() {
     return {
       allTopics: '',
-      choosenTopic: ''
+      choosenQuestions: ''
     };
   },
   methods: {
@@ -44,8 +48,8 @@ export default {
           return response.data;
         })
         .then((questions) => {
-          this.choosenTopic = questions;
-          return this.choosenTopic;
+          this.choosenQuestions = questions;
+          return this.choosenQuestions;
         });
     }
   },
@@ -55,13 +59,16 @@ export default {
         return response.data;
       })
       .then((topics) => (this.allTopics = topics));
+  },
+  components: {
+    QuestionCard
   }
 };
 </script>
 
 <style>
 .topic {
-  color: #F57C00;
+  color: 'orange darken-2';
   text-align: center!important;
 }
 </style>

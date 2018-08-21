@@ -14,11 +14,11 @@
           </div>
           <p>Required: {{ requiredPerc*10 }}%</p>
           <p>Time: {{ time }}</p>
-          <div v-if="comeFromHistory">
-            <v-card-actions>
+          <v-card-actions v-if="comeFromHistory">
+            <v-flex>
               <v-btn @click="rewiewQuiz(quizDetails.id)" flat color="orange">Review</v-btn>
-            </v-card-actions>
-          </div>
+            </v-flex>
+          </v-card-actions>
           <div v-else>
             You can review your answers by clicking on questions progress bar.
           </div>
@@ -68,7 +68,7 @@ export default {
       this.time = fnsDate.format(milisec, 'mm:ss');
     },
     rewiewQuiz(quizId) {
-      // switch to component for retaking quiz
+      this.$router.push({ name: 'review', params: {quizId} });
     }
   },
   created() {

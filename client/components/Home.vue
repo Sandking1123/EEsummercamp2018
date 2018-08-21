@@ -16,7 +16,6 @@
 
 <script>
 import leaderboard from './Leaderboard';
-import mainmenu from './MainMenu';
 
 export default {
   name: 'home',
@@ -25,8 +24,7 @@ export default {
     };
   },
   components: {
-    leaderboard,
-    mainmenu
+    leaderboard
   }
 };
 </script>

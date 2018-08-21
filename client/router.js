@@ -5,6 +5,7 @@ import Callback from './components/Callback.vue';
 import HistoryComp from './components/History.vue';
 import QuizScreen from './components/QuizScreen';
 import LearningScreen from './components/LearningScreen';
+import ReviewScreen from './components/ReviewScreen';
 
 Vue.use(Router);
 
@@ -35,6 +36,11 @@ const router = new Router({
       path: '/learning',
       name: 'learning',
       component: LearningScreen
+    },
+    {
+      path: '/review/:quizId',
+      name: 'review',
+      component: ReviewScreen
     }
   ]
 });
