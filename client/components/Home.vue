@@ -1,10 +1,11 @@
 <template>
   <v-container>
     <v-layout row wrap>
-      <v-flex xs4 offset-xs4>
-        <h1>Leaderboard</h1>
+      <v-flex>
+        <panel />
       </v-flex>
-      <v-flex xs4 offset-xs4>
+      <v-flex xs4>
+        <h1>Leaderboard</h1>
         <leaderboard />
       </v-flex>
     </v-layout>
@@ -13,6 +14,7 @@
 
 <script>
 import leaderboard from './Leaderboard';
+import panel from './Panel';
 
 export default {
   name: 'home',
@@ -21,7 +23,8 @@ export default {
     };
   },
   components: {
-    leaderboard
+    leaderboard,
+    panel
   }
 };
 </script>
