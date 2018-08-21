@@ -44,7 +44,9 @@ export default {
     return {
       options: [
         { title: 'Home', icon: 'home', url: 'home' },
-        { title: 'Quiz', icon: 'chat', url: 'quiz' },
+        { title: 'Quiz', icon: 'arrow_drop_down', url: '' },
+        {title: 'Git', icon: '', url: ''},
+        {title: 'Regular', icon: '', url: ''},
         { title: 'History', icon: 'event', url: 'history' },
         { title: 'Question by question', icon: 'info', url: '' }
       ],

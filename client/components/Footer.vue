@@ -11,6 +11,6 @@
   position: absolute;
   width: 100%;
   bottom: 0;
-  background-color: #ECEFF1;
+  background-color: hsla(hue, saturation, lightness, alpha);
 }
 </style>
