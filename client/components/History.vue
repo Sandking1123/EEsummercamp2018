@@ -1,46 +1,57 @@
 <template>
-  <div class="history">
-    <v-layout d-flex center>
-      <v-flex xs12 sm6 offset-sm3>
-        <h2>History</h2>
-        <v-list v-if="quizHistory.length !== 0" dark>
-          <v-list-tile
-            v-for="(item, index) in quizHistory"
-            :key="item.id"
-            @click="getSummary(item)">
-            <v-list-tile-content>
-              <v-list-tile-title class="title-text">
-                {{ nameOfQuiz + " " + (quizHistory.length - index) + ". - "+ (item.percentage*10) +
-                "% " + getNormalDate(item.createdAt) }}
-              </v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-        <v-list v-else>
-          <h3>There are no completed quizzes.</h3>
-        </v-list>
-      </v-flex>
-    </v-layout>
-    <br>
-    <summary-comp
-      v-if="clicked"
-      :comeFromHistory="true"
-      :quizId="idOfQuiz">
-    </summary-comp>
-  </div>
+  <v-container class="history">
+    <v-flex xs4 offset-xs4>
+      <h1>Quiz History</h1>
+    </v-flex>
+    <v-flex xs6 offset-xs3>
+      <v-data-table
+        :items="quizHistory"
+        :headers="headers"
+        class="elevation-1"
+        hide-actions
+        dark>
+        <template slot-scope="props" slot="headers">
+          <th
+            v-for="header in props.headers"
+            :key="header.name">
+            {{ header.name }}
+          </th>
+        </template>
+        <template slot-scope="props" slot="items" @click="getSummary(props.item)">
+          <td>{{ props.item.topic }}</td>
+          <td>{{ props.item.percentage * 10 }}%</td>
+          <td>{{ calculateTime(props.item) }}</td>
+          <td>{{ getNormalDate(props.item.timestamp) }}</td>
+          <td>
+            <v-icon
+              @click="$router.push({ name: 'review', params: {quizId: props.item.id} })"
+              small
+              class="mr-2">
+              rate_review
+            </v-icon>
+          </td>
+        </template>
+      </v-data-table>
+    </v-flex>
+  </v-container>
 </template>
 
 <script>
 import { quizApi } from '../api';
-import summaryComp from './Summary';
+import fnsDate from 'date-fns';
+
 export default {
   name: 'history',
   data() {
     return {
-      nameOfQuiz: 'Quiz',
-      quizHistory: '',
-      idOfQuiz: '',
-      clicked: false
+      headers: [
+        {name: 'Type'},
+        {name: 'Score'},
+        {name: 'Time'},
+        {name: 'Date'},
+        {name: 'Action'}
+      ],
+      quizHistory: []
     };
   },
   methods: {
@@ -48,9 +59,9 @@ export default {
       const date = new Date(longDate);
       return date.toLocaleString();
     },
-    getSummary(quiz) {
-      this.idOfQuiz = quiz.id;
-      this.clicked = true;
+    calculateTime(quiz) {
+      const milisec = fnsDate.differenceInMilliseconds(quiz.timestamp, quiz.createdAt);
+      return fnsDate.format(milisec, 'mm:ss');
     }
   },
   created: function getHistory() {
@@ -58,9 +69,6 @@ export default {
       .then(({data}) => data.filter(h => h.timestamp))
       .then((history) => (this.quizHistory = history))
       .catch((err) => console.log(err));
-  },
-  components: {
-    summaryComp
   }
 };
 </script>
