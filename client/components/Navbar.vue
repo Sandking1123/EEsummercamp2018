@@ -16,7 +16,8 @@
       </v-list>
     </v-menu>
 
-    <v-btn @click="goToHome" class="navbarbtn" large round><img src="../assets/logoTYK.png" width="40" height="40">
+    <v-btn @click="goToHome" class="navbarbtn" large round>
+      <img src="../assets/logoTYK.png" width="40" height="40">
       <v-toolbar-title class="toolbartitle">Test your Knowledge</v-toolbar-title>
     </v-btn>
     <v-spacer></v-spacer>
