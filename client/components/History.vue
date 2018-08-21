@@ -3,12 +3,12 @@
     <v-layout d-flex center>
       <v-flex xs12 sm6 offset-sm3>
         <h2>History</h2>
-        <v-list v-if="quizHistory.length !== 0" class="quiz-list">
+        <v-list v-if="quizHistory.length !== 0" dark>
           <v-list-tile
             v-for="(item, index) in quizHistory"
             :key="item.id"
             @click="getSummary(item)">
-            <v-list-tile-content class="title-content">
+            <v-list-tile-content>
               <v-list-tile-title class="title-text">
                 {{ nameOfQuiz + " " + (quizHistory.length - index) + ". - "+ (item.percentage*10) +
                 "% " + getNormalDate(item.createdAt) }}
@@ -70,17 +70,6 @@ export default {
 <style scoped>
 .history {
   margin-bottom: 65px;
-}
-.quiz-list {
-  border: 1px solid #90A4AE;
-  border-radius: 8px;
-  background:rgb(124, 135, 141) !important;
-}
-.title-content {
-  background-color: rgb(124, 135, 141);
-}
-.title-content:hover{
-  background-color: #CFD8DC;
 }
 .title-text {
   text-align: center;
