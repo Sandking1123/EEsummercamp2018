@@ -10,6 +10,7 @@
 import navbar from './components/Navbar';
 import footerComponent from './components/Footer';
 
+document.title = 'Test Your Knowledge';
 export default {
   name: 'app',
   components: {
