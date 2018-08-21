@@ -159,6 +159,7 @@ async function createQuizInstance(userId, topic) {
 
   return Quiz.create({
     userId,
+    topic,
     quizQuestions: questionIds.map(o => ({questionId: o.id}))
   }, {
     include: [Quiz.Questions]

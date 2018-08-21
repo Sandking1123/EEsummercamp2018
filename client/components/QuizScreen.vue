@@ -100,8 +100,12 @@ export default {
     quizApi.createInstance(this.$route.params.topic)
       .catch(error => {
         if (error.response && error.response.status === 302) {
-          // TODO prompt user to choose what to to
-          return quizApi.getInstance();
+          if (error.response.data.topic === this.$route.params.topic) {
+            return quizApi.getInstance();
+          } else {
+            return quizApi.endInstance()
+              .then(() => quizApi.createInstance(this.$route.params.topic));
+          }
         } else {
           return Promise.reject(error);
         }
