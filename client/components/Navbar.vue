@@ -7,7 +7,8 @@
         <v-list-tile
           v-for="option in options"
           :key="option.title"
-          @click="navigateTo(option)">
+          @click="navigateTo(option.url)"
+          :disabled="option.disable">
           <v-list-tile-action>
             <v-icon color="orange darken-3">{{ option.icon }}</v-icon>
           </v-list-tile-action>
@@ -42,12 +43,19 @@
 export default {
   data() {
     return {
-      options: [
-        { title: 'Home', icon: 'home', url: 'home' },
-        { title: 'Quiz', icon: 'chat', url: 'quiz' },
-        { title: 'History', icon: 'event', url: 'history' },
-        { title: 'Question by question', icon: 'info', url: '' }
-      ],
+      options: [{
+        title: 'Home', icon: 'home', url: '/'
+      }, {
+        title: 'Quiz', icon: 'chat', disable: true
+      }, {
+        title: 'Git', url: ''
+      }, {
+        title: 'Regular', url: ''
+      }, {
+        title: 'History', icon: 'event', url: 'history'
+      }, {
+        title: 'Question by question', icon: 'info', url: ''
+      }],
       chosenPath: ''
     };
   },
@@ -55,8 +63,8 @@ export default {
     goToHome() {
       this.$router.replace({name: 'home'});
     },
-    navigateTo(clickedItem) {
-      this.$router.push({name: clickedItem.url});
+    navigateTo(path) {
+      this.$router.push(path);
     }
   }
 };

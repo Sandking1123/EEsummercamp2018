@@ -10,7 +10,7 @@
             @click="getSummary(item)">
             <v-list-tile-content class="title-content">
               <v-list-tile-title class="title-text">
-                {{ nameOfQuiz + " " + (index+1) + ". - "+ (item.percentage*10) +
+                {{ nameOfQuiz + " " + (quizHistory.length - index) + ". - "+ (item.percentage*10) +
                 "% " + getNormalDate(item.createdAt) }}
               </v-list-tile-title>
             </v-list-tile-content>
