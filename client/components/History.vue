@@ -10,7 +10,7 @@
             @click="getSummary(item)">
             <v-list-tile-content class="title-content">
               <v-list-tile-title class="title-text">
-                {{ nameOfQuiz + " " + (index+1) + ". - "+ (item.percentage*10) +
+                {{ nameOfQuiz + " " + (quizHistory.length - index) + ". - "+ (item.percentage*10) +
                 "% " + getNormalDate(item.createdAt) }}
               </v-list-tile-title>
             </v-list-tile-content>
@@ -74,10 +74,10 @@ export default {
 .quiz-list {
   border: 1px solid #90A4AE;
   border-radius: 8px;
-  background: #B0BEC5 !important;
+  background:rgb(124, 135, 141) !important;
 }
 .title-content {
-  background-color: #B0BEC5;
+  background-color: rgb(124, 135, 141);
 }
 .title-content:hover{
   background-color: #CFD8DC;

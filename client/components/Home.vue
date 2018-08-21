@@ -1,13 +1,10 @@
 <template>
   <v-container>
     <v-layout row wrap>
-      <v-flex xs12 offset-xs8>
+      <v-flex xs4 offset-xs4>
         <h1>Leaderboard</h1>
       </v-flex>
-      <v-flex xs3 offset-xs2>
-        <mainmenu></mainmenu>
-      </v-flex>
-      <v-flex xs4 offset-xs3>
+      <v-flex xs4 offset-xs4>
         <leaderboard />
       </v-flex>
     </v-layout>
