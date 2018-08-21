@@ -89,6 +89,14 @@ function answerQuestion({user, params, body}, res) {
     .catch((err) => res.status(404).send(err.message));
 }
 
+function endQuizInstance({user}, res) {
+  const userId = user.id;
+  findQuizInstance(userId)
+    .then(({id, userId}) => findQuizDetails(id, userId))
+    .then(async quizDetails => res.json(await finalizeQuiz(quizDetails)))
+    .catch(err => res.status(404).send(err.message));
+}
+
 /*
  *  Helper functions
  */
@@ -174,5 +182,6 @@ module.exports = {
   getQuizDetails,
   retrieveQuizInstance,
   startQuizInstance,
-  answerQuestion
+  answerQuestion,
+  endQuizInstance
 };

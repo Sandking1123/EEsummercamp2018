@@ -23,10 +23,15 @@ function answerQuestion(questionId, answers, finalize) {
   });
 }
 
+function endInstance() {
+  return request.post('/quizzes/instance/end');
+}
+
 export default {
   getHistory,
   getQuizDetails,
   getInstance,
   createInstance,
-  answerQuestion
+  answerQuestion,
+  endInstance
 };

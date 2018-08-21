@@ -3,6 +3,8 @@ const controller = require('./quiz.controller');
 
 // answer question / finish quiz
 router.put('/quizzes/instance/question/:id', controller.answerQuestion);
+// finish quiz
+router.post('/quizzes/instance/end', controller.endQuizInstance);
 // start/resume quiz
 router.get('/quizzes/instance', controller.retrieveQuizInstance);
 router.post('/quizzes/instance/:topic', controller.startQuizInstance);
