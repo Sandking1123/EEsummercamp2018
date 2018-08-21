@@ -21,16 +21,16 @@
       <v-flex xs9>
         <v-layout row wrap>
           <v-flex xs7>
-            <v-btn @click="decrement">Prev</v-btn>
+            <v-btn @click="decrement" color="orange">Prev</v-btn>
             {{ current }}/{{ choosenQuestions.length }}
-            <v-btn @click="increment">Next</v-btn>
+            <v-btn @click="increment" color="orange">Next</v-btn>
           </v-flex>
           <v-flex xs3>
             <v-text-field v-model="indexText" label= "#No question" hint="2/757" clearable>
             </v-text-field>
           </v-flex>
           <v-flex xs1>
-            <v-btn @click="getIndex()">Get </v-btn>
+            <v-btn @click="getIndex()" color="orange">Get </v-btn>
           </v-flex>
         </v-layout>
         <question-card
