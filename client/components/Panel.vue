@@ -22,10 +22,10 @@ export default {
     return {
       slides: [
         {
-          src: require('../assets/picture1.png'),
-          title: 'Learn all about git, javascript, sql and more! ' },
-        { src: require('../assets/picture2.png'),
-          title: 'Or... Test your knowledge with our quiz!' }
+          src: require('../assets/pictureLogos.png'),
+          title: 'LEARN ALL ABOUT:' },
+        { src: require('../assets/pictureExample.png'),
+          title: 'TEST YOUR KNOWLEDGE WITH OUR QUIZ' }
       ]
     };
   }
@@ -37,8 +37,8 @@ export default {
   margin-top: 19px;
 }
 .title {
-  color: orange;
+  color: orangered;
   text-align: center;
-  font-size: 20px!important;
+  font-size: 30px !important;
 }
 </style>
